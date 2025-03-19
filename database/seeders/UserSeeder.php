@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'nombre' => 'Manuel Jesus',
             'apellido_paterno' => 'Gallardo',
             'apellido_materno' => 'Pavez',
-            'calidad_juridica' => '1',
+            'calidad_juridica' => '2',
             'email' => 'manuel.gallardo@puertomontt.cl',
             'position' => 'Administrador de Sistema',
             'role' => 'admin',
