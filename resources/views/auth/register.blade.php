@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>GROWSHOP | Inicio de sesion</title>
+    <title>ESCALAFÓN | Inicio de sesion</title>
 
     <meta name="description" content="">
     <meta name="author" content="pixelcave">
@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('media/favicons/apple-touch-icon-180x180.png') }}">
 
     @yield('css')
-    @vite(['resources/sass/main.scss', 'resources/sass/dashmix/themes/xeco.scss', 'resources/js/dashmix/app.js'])
+    @vite(['resources/sass/main.scss', 'resources/sass/dashmix/themes/_base.scss', 'resources/js/dashmix/app.js'])
 
     @yield('js')
 </head>

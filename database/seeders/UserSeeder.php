@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,14 +18,11 @@ class UserSeeder extends Seeder
             'nombre' => 'Manuel Jesus',
             'apellido_paterno' => 'Gallardo',
             'apellido_materno' => 'Pavez',
-            'calidad_juridica' => '2',
+            'Id_calidad' => '2',
             'email' => 'manuel.gallardo@puertomontt.cl',
-            'position' => 'Administrador de Sistema',
             'role' => 'admin',
-            'password' => bcrypt('123456789'),
-            'admission_date' => '2020-01-01',
-            'end_date' => '2030-01-01',
-            'active' => 1
+            'password' => bcrypt('123456'),
+            'estado' => 1
         ]);
     }
 }

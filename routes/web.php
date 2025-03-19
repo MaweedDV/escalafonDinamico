@@ -19,9 +19,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:customer'])->prefix('my-account')->group(function () {
+Route::middleware(['auth', 'role:usuario'])->prefix('my-account')->group(function () {
+    Route::get('/inicio', [BackEndHomeController::class, 'index'])->name('inicio');
 
+    // Users
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
 });
 
-Route::get('/', [FrontEndHomeController::class, 'index'])->name('home');
+Route::get('/', [FrontEndHomeController::class, 'index'])->name('papa');
 

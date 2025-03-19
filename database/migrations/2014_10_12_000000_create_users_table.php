@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
-            $table->integer('calidad_juridica');
             $table->string('email')->unique();
-            $table->enum('tipo_usuario', ['admin', 'administrativo'])->default('administrativo');
+            $table->enum('role', ['admin', 'usuario']);
             $table->string('password');
             $table->integer('estado')->default(1);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreignId('Id_calidad')->constrained('calidad_juridica');
         });
     }
 

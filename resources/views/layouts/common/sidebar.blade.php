@@ -1,12 +1,9 @@
 <nav id="sidebar" aria-label="Main Navigation">
     <div class="bg-header-dark">
         <div class="content-header bg-white-5">
-            <a class="fw-semibold text-white tracking-wide" href="/">
-                <span class="smini-visible">
-                    4<span class="opacity-75">20</span>
-                </span>
+            <a class="fw-semibold text-white tracking-wide" href="/admin/dashboard">
                 <span class="smini-hidden">
-                    Grow<span class="opacity-75">shop</span>
+                    Esca<span class="opacity-75">lafón</span>
                 </span>
             </a>
             <div>
@@ -18,7 +15,6 @@
                     data-action="sidebar_close">
                     <i class="fa fa-times-circle"></i>
                 </button>
-
             </div>
         </div>
     </div>
@@ -26,62 +22,49 @@
         <!-- Side Navigation -->
         <div class="content-side content-side-full">
             <ul class="nav-main">
+                <li class="nav-main-heading">Administrador</li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/admin/dashboard">
-                        <i class="nav-main-link-icon fa fa-location-arrow"></i>
-                        <span class="nav-main-link-name">Dashboard</span>
-                        <span class="nav-main-link-badge badge rounded-pill bg-primary">5</span>
+                    <a class="nav-main-link" href="/">
+                        <i class="nav-main-link-icon fa fa-angles-up"></i>
+                        <span class="nav-main-link-name">Ascensos</span>
                     </a>
                 </li>
-                <li class="nav-main-heading">Administrador</li>
-                <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
-                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
-                        aria-expanded="true" href="#">
-                        <i class="nav-main-link-icon fa fa-lightbulb"></i>
-                        <span class="nav-main-link-name">Mantenedores</span>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/">
+                        <i class="nav-main-link-icon fa fa-file-pen"></i>
+                        <span class="nav-main-link-name">Calificación</span>
                     </a>
-                    <ul class="nav-main-submenu">
-                        <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}"
-                                href="{{ route('users.index') }}">
-                                <span class="nav-main-link-name">Usuarios</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="/">
                         <i class="nav-main-link-icon fa fa-globe"></i>
-                        <span class="nav-main-link-name">Landing</span>
+                        <span class="nav-main-link-name">Escalafón</span>
                     </a>
                 </li>
-                <li class="nav-main-heading">Tienda</li>
-                <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
-                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
-                        aria-expanded="true" href="#">
-                        <i class="nav-main-link-icon fa fa-lightbulb"></i>
-                        <span class="nav-main-link-name">Examples</span>
+                <li class="nav-main-heading">Mantenedores</li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/">
+                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <span class="nav-main-link-name">Usuarios del Sistema</span>
                     </a>
-                    <ul class="nav-main-submenu">
-                        <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}"
-                                href="/pages/datatables">
-                                <span class="nav-main-link-name">DataTables</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
-                                href="/pages/slick">
-                                <span class="nav-main-link-name">Slick Slider</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}"
-                                href="/pages/blank">
-                                <span class="nav-main-link-name">Blank</span>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/">
+                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <span class="nav-main-link-name">Funcionarios</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/">
+                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <span class="nav-main-link-name">Nombres de Cargos</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="/">
+                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <span class="nav-main-link-name">Cargos Escalafón (Nombre cargo y Grado)</span>
+                    </a>
                 </li>
 
             </ul>
