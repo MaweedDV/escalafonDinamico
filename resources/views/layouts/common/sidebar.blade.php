@@ -2,8 +2,11 @@
     <div class="bg-header-dark">
         <div class="content-header bg-white-5">
             <a class="fw-semibold text-white tracking-wide" href="/admin/dashboard">
+                <span class="smini-visible">
+                    E<span class="opacity-75">M</span>
+                </span>
                 <span class="smini-hidden">
-                    Esca<span class="opacity-75">lafón</span>
+                    Escalafón <span class="opacity-75">Municipal</span>
                 </span>
             </a>
             <div>
@@ -37,32 +40,32 @@
                 </li>
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="/">
-                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <i class="nav-main-link-icon fa fa-list-ol"></i>
                         <span class="nav-main-link-name">Escalafón</span>
                     </a>
                 </li>
                 <li class="nav-main-heading">Mantenedores</li>
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="/">
-                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <i class="nav-main-link-icon fa fa-users-gear"></i>
                         <span class="nav-main-link-name">Usuarios del Sistema</span>
                     </a>
                 </li>
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="/">
-                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <i class="nav-main-link-icon fa fa-building-user"></i>
                         <span class="nav-main-link-name">Funcionarios</span>
                     </a>
                 </li>
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="/">
-                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <i class="nav-main-link-icon fa fa-file-pen"></i>
                         <span class="nav-main-link-name">Nombres de Cargos</span>
                     </a>
                 </li>
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="/">
-                        <i class="nav-main-link-icon fa fa-globe"></i>
+                        <i class="nav-main-link-icon fa fa-id-card"></i>
                         <span class="nav-main-link-name">Cargos Escalafón (Nombre cargo y Grado)</span>
                     </a>
                 </li>

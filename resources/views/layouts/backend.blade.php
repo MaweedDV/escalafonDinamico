@@ -21,7 +21,7 @@
 
 <body>
     <div id="page-container"
-        class="sidebar-o enable-page-overlay sidebar-light page-header-dark light-mode side-scroll page-header-fixed">
+        class="sidebar-o enable-page-overlay sidebar-mini page-header-dark light-mode side-scroll page-header-fixed">
         @include('layouts.common.sidebar')
         @include('layouts.common.header')
 

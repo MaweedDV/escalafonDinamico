@@ -19,101 +19,152 @@
     </div>
     <div class="content">
         <div class="row items-push">
-            <div class="col-md-6 col-xl-4">
-                <a class="block block-rounded block-link-shadow bg-danger" href="{{ route('users.index') }}">
-                    <div class="block-content block-content-full d-flex align-items-center justify-content-between">
-                        <div class="me-3">
-                            <p class="text-white fs-3 fw-medium mb-0">
-                                {{ $users->count() }}
-                            </p>
-                            <p class="text-white-75 mb-0">
-                                Usuarios
-                            </p>
-                        </div>
-                        <div>
-                            <i class="fa fa-2x fa-boxes text-black-50"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 col-xl-4">
-                <a class="block block-rounded block-link-shadow bg-warning" href="javascript:void(0)">
-                    <div class="block-content block-content-full d-flex align-items-center justify-content-between">
-                        <div class="me-3">
-                            <p class="text-white fs-3 fw-medium mb-0">
-                                150
-                            </p>
-                            <p class="text-white-75 mb-0">
-                                Pedidos
-                            </p>
-                        </div>
-                        <div>
-                            <i class="fa fa-2x fa-boxes text-black-50"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 col-xl-4">
-                <a class="block block-rounded block-link-shadow bg-success" href="javascript:void(0)">
-                    <div class="block-content block-content-full d-flex align-items-center justify-content-between">
-                        <div class="me-3">
-                            <p class="text-white fs-3 fw-medium mb-0">
-                                63
-                            </p>
-                            <p class="text-white-75 mb-0">
-                                Ganancias
-                            </p>
-                        </div>
-                        <div>
-                            <i class="fa fa-2x fa-boxes text-black-50"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 col-xl-6">
-                <div class="block block-rounded h-100 mb-0">
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">
-                            Welcome to your app
-                        </h3>
-                    </div>
-                    <div class="block-content">
-                        <p>
-                            We’ve put everything together, so you can start working on your Laravel project as soon as
-                            possible! Dashmix assets are integrated and work seamlessly with Laravel Vite, so you can use
-                            the npm scripts as you would in any other Laravel project.
-                        </p>
-                        <p>
-                            Feel free to use any examples you like from the full HTML version to build your own pages.
-                        </p>
-                        <p class="fw-semibold">
-                            Wish you all the best and happy coding!
-                        </p>
-                    </div>
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title">JEFATURA GRADO 7 (8 CARGOS)</h3>
+                  <div class="block-options">
+                    {{-- <div class="block-options-item">
+                      <code>.table-bordered</code>
+                    </div> --}}
+                  </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-xl-6">
-                <div class="block block-rounded h-100 mb-0">
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">
-                            Welcome to your app
-                        </h3>
-                    </div>
-                    <div class="block-content">
-                        <p>
-                            We’ve put everything together, so you can start working on your Laravel project as soon as
-                            possible! Dashmix assets are integrated and work seamlessly with Laravel Vite, so you can use
-                            the npm scripts as you would in any other Laravel project.
-                        </p>
-                        <p>
-                            Feel free to use any examples you like from the full HTML version to build your own pages.
-                        </p>
-                        <p class="fw-semibold">
-                            Wish you all the best and happy coding!
-                        </p>
-                    </div>
+                <div class="block-content">
+                  <table class="table table-bordered table-vcenter">
+                    <thead>
+                      <tr>
+                        <th class="text-center" style="width: 50px;">Lugar</th>
+                        <th>Nombre</th>
+                        <th>Rut</th>
+                        <th>Grado</th>
+                        <th>Calif.</th>
+                        <th>Lista</th>
+                        <th>Antig. Cargo</th>
+                        <th>Antig. Grado</th>
+                        <th>Antig. Mismo Municipio</th>
+                        <th>Antig. Mismo Municipio En Detalle (Años-Meses-Dias)</th>
+                        <th>Antig.Administ. Estado</th>
+                        <th>Educación Formal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th class="text-center" scope="row">1</th>
+                        <td class="fw-semibold">
+                          <a href="be_pages_generic_profile.html">Alice Moore</a>
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                          <span class="badge bg-warning">Trial</span>
+                        </td>
+                        <td class="text-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                              <i class="fa fa-pencil-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="text-center" scope="row">2</th>
+                        <td class="fw-semibold">
+                          <a href="be_pages_generic_profile.html">Justin Hunt</a>
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                          <span class="badge bg-info">Business</span>
+                        </td>
+                        <td class="text-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                              <i class="fa fa-pencil-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="text-center" scope="row">3</th>
+                        <td class="fw-semibold">
+                          <a href="be_pages_generic_profile.html">Betty Kelley</a>
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                          <span class="badge bg-success">VIP</span>
+                        </td>
+                        <td class="text-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                              <i class="fa fa-pencil-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="text-center" scope="row">4</th>
+                        <td class="fw-semibold">
+                          <a href="be_pages_generic_profile.html">Marie Duncan</a>
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                          <span class="badge bg-danger">Disabled</span>
+                        </td>
+                        <td class="text-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                              <i class="fa fa-pencil-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="text-center" scope="row">5</th>
+                        <td class="fw-semibold">
+                          <a href="be_pages_generic_profile.html">Melissa Rice</a>
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                          <span class="badge bg-info">Business</span>
+                        </td>
+                        <td class="text-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                              <i class="fa fa-pencil-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="text-center" scope="row">6</th>
+                        <td class="fw-semibold">
+                          <a href="be_pages_generic_profile.html">Brian Cruz</a>
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                          <span class="badge bg-primary">Personal</span>
+                        </td>
+                        <td class="text-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                              <i class="fa fa-pencil-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-            </div>
+              </div>
         </div>
     </div>
 @endsection
