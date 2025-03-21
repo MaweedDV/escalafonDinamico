@@ -23,7 +23,7 @@
 <body>
     <div id="page-container" class="enable-page-overlay dark-mode side-scroll">
         <main id="main-container">
-            <div class="bg-image" style="background-image: url({{ asset('images/login_background.jpg') }})">
+            <div class="bg-image" style="background-image: url({{ asset('images/municipalidad.jpg') }})">
                 <div class="row g-0 justify-content-center bg-primary-dark-op">
                     <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
                         <div class="block block-transparent block-rounded w-100 mb-0 overflow-hidden">

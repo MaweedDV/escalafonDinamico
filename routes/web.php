@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\EscalafonController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController as FrontEndHomeController;
@@ -12,6 +13,9 @@ Auth::routes();
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [BackEndHomeController::class, 'index'])->name('dashboard');
+
+    //ESCALAFON
+    Route::get('/escalafon', [EscalafonController::class, 'index'])->name('escalafon.index');
 
     // Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
