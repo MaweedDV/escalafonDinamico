@@ -143,7 +143,7 @@
                             <h6>02-01-2019</h6>
                         </td>
                         <td class="text-center">
-                            <h6>01-0-1982</h6>
+                            <h6>01-01-1982</h6>
                         </td>
                         <td class="text-center">
                             <h6> </h6>
