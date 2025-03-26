@@ -58,7 +58,7 @@
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="/">
+                    <a class="nav-main-link" href="{{ route('nombresCargos.index')}}">
                         <i class="nav-main-link-icon fa fa-file-pen"></i>
                         <span class="nav-main-link-name">Nombres de Cargos</span>
                     </a>

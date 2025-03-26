@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Backend\CargosEscalafon;
 use App\Http\Controllers\Backend\EscalafonController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController as FrontEndHomeController;
 use App\Http\Controllers\Backend\HomeController as BackEndHomeController;
+use App\Http\Controllers\Backend\NombresCargosController;
 use App\Http\Controllers\Backend\UserController;
+use App\Models\NombresCargos;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,6 +23,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
+    //NOMBRES CARGOS
+    Route::get('/nommbresCargos', [NombresCargosController::class, 'index'])->name('nombresCargos.index');
+    Route::post('/nommbresCargos', [NombresCargosController::class, 'store'])->name('nombresCargos.store');
+
+    //CARGOS ESCALAFON
+    Route::get('/cargosEscalafon', [CargosEscalafon::class, 'index'])->name('cargosEscalafon.index');
+    Route::post('/cargosEscalafon', [CargosEscalafon::class, 'store'])->name('cargosEscalafon.store');
+
 
 });
 

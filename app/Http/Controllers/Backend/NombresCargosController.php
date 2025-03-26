@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\NombresCargosDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\NombresCargos;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class NombresCargosController extends Controller
@@ -13,7 +15,7 @@ class NombresCargosController extends Controller
      */
     public function index(NombresCargosDataTable $dataTable)
     {
-        return $dataTable->render('backend.sections.users.index');
+        return $dataTable->render('backend.sections.nombresCargos.index');
     }
 
     /**
@@ -29,7 +31,16 @@ class NombresCargosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nombreCargo = NombresCargos::create([
+            'nombre_cargo' => $request->nombreCargo,
+        ]);
+
+        if ($nombreCargo instanceof Model) {
+
+            return to_route('nombresCargos.index')->with('success', 'Registro creado exitosamente!');
+
+        }
+
     }
 
     /**

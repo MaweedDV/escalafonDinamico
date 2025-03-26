@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('asignado');
             $table->timestamps();
 
-            $table->foreignId('Id_nombrescargos')->constrained('nombres_cargos');
+            $table->foreignId('Id_nombresCargos')->constrained('nombres_cargos');
         });
 
 

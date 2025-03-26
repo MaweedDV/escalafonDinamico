@@ -15,7 +15,7 @@ class NombresCargos extends Model
     ];
 
     public function CargosEscalafon(){
-        return $this->belongsTo(CargosEscalafon::class);
+        return $this->hasMany(CargosEscalafon::class);
     }
 
 }

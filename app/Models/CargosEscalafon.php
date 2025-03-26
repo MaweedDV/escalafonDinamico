@@ -12,10 +12,11 @@ class CargosEscalafon extends Model
     protected $fillable = [
         'grado',
         'asignado',
+        'Id_nombrescargos',
     ];
 
     public function NombresCargos(){
-        return $this->hasMany(NombresCargos::class);
+        return $this->belongsTo(NombresCargos::class);
     }
 
 }
