@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\CalidadJuridica;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -15,7 +16,11 @@ class UserController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
-        return $dataTable->render('backend.sections.users.index');
+
+        $calidadJuridica = CalidadJuridica::all();
+
+
+        return $dataTable->render('backend.sections.users.index', compact('calidadJuridica'));
     }
 
     /**
@@ -31,28 +36,60 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|max:255|confirmed',
-            'password_confirmation' => 'required|string|min:8|max:255',
-        ]);
 
-        $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-            ]);
 
-        if ($user instanceof Model) {
-            toastr()->warning('Data has been saved successfully!');
 
-            return to_route('users.index')->with('flash', 'Registro creado exitosamente!');
+        // $this->validate($request, [
+        //     'rut' => 'required|string|min:9|max:10',
+        //     'nombre' => 'required|string|min:3|max:255',
+        //     'apellido_paterno' => 'required|string|min:3|max:255',
+        //     'apellido_materno' => 'required|string|min:3|max:255',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|string|min:8|max:255|confirmed',
+        //     'password_confirmation' => 'required|string|min:8|max:255',
+        // ]);
+
+        if ($request->activo == null) {
+                $user = User::create([
+                    'rut' => $request->rut,
+                    'nombre' => $request->nombre,
+                    'apellido_paterno' => $request->apellidoPaterno,
+                    'apellido_materno' => $request->apellidoMaterno,
+                    'email' => $request->email,
+                    'role' => $request->role,
+                    'Id_calidad' => $request->calidadJuridica,
+                    'password' => bcrypt($request->password),
+                    'estado' => 0,
+                ]);
+
+                if ($user instanceof Model) {
+
+                    return to_route('users.index')->with('success', 'Registro creado exitosamente!');
+
+                }
+
+        }else{
+                $user = User::create([
+                    'rut' => $request->rut,
+                    'nombre' => $request->nombre,
+                    'apellido_paterno' => $request->apellidoPaterno,
+                    'apellido_materno' => $request->apellidoMaterno,
+                    'email' => $request->email,
+                    'role' => $request->role,
+                    'Id_calidad' => $request->calidadJuridica,
+                    'password' => bcrypt($request->password),
+                    'estado' => $request->activo,
+                ]);
+
+                if ($user instanceof Model) {
+
+                    return to_route('users.index')->with('success', 'Registro creado exitosamente!');
+
+                }
+
         }
 
-        toastr()->error('An error has occurred please try again later.');
 
-        return back();
     }
 
     /**

@@ -16,30 +16,69 @@
                     <div class="block-content">
                         <div class="row mb-4">
                             <div class="col-6">
-                                <label class="form-label" for="example-ltf-email2">Nombre</label>
-                                <input type="text" class="form-control form-control" id="name" name="name"
-                                    placeholder="Ingrese su nombre">
-                                @error('name')
+                                <label class="form-label" for="example-ltf-email2">Rut</label>
+                                <input type="text" class="form-control form-control" id="rut" name="rut"
+                                    placeholder="Ingrese su Rut">
+                                @error('rut')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="col-6">
-                                <label class="form-label" for="example-select-floating">Rol</label>
-                                <select class="form-select" id="example-select-floating" name="role"
-                                    aria-label="Floating label select example">
-                                    <option selected="" disabled>Seleccione un rol</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="customer">Cliente</option>
-                                </select>
+                                <label class="form-label" for="example-ltf-email2">Nombre/s</label>
+                                <input type="text" class="form-control form-control" id="nombre" name="nombre"
+                                    placeholder="Ingrese su nombre">
+                                @error('nombre')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="example-ltf-email2">Apellido Paterno</label>
+                                <input type="text" class="form-control form-control" id="apellidoPaterno" name="apellidoPaterno"
+                                    placeholder="Ingrese su Apellido Paterno">
+                                @error('apellidoPaterno')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="example-ltf-email2">Apellido Materno</label>
+                                <input type="text" class="form-control form-control" id="apellidoMaterno" name="apellidoMaterno"
+                                    placeholder="Ingrese su Apellido Materno">
+                                @error('apellidoMaterno')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label" for="example-ltf-email2">Correo electronico</label>
                                 <input type="email" class="form-control form-control" id="email" name="email"
                                     placeholder="Ingrese su correo electronico">
                             </div>
-
+                            <div class="col-6">
+                                <label class="form-label" for="example-select-floating">Rol</label>
+                                <select class="form-select" id="example-select-floating" name="role"
+                                    aria-label="Floating label select example">
+                                    <option selected="" disabled>Seleccione un rol</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="usuario">Usuario Normal</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="example-select-floating">Calidad Juridica</label>
+                                <select class="form-select" id="example-select-floating" name="calidadJuridica"
+                                    aria-label="Floating label select example">
+                                    <option selected="" disabled>Seleccione una calidad</option>
+                                    @foreach ($calidadJuridica as $calidadJuridica)
+                                    <option {{ old('rut') == $calidadJuridica->id ? 'selected' : '' }} value="{{ $calidadJuridica->id }}"> {{ $calidadJuridica->nombre_calidad }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-6">
                                 <label class="form-label" for="example-ltf-email2">Contraseña</label>
                                 <input type="password" class="form-control form-control" id="example-ltf-email2"
@@ -50,6 +89,11 @@
                                 <input type="password" class="form-control form-control" id="signup-password-confirm"
                                     name="password_confirmation" placeholder="Confirme su contraseña" />
                             </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label" for="example-ltf-email2">Activo</label>
+                            <input class="form-check-input" type="checkbox" value="1"
+                            id="example-switch-default1" name="activo" checked=""/>
                         </div>
                     </div>
                     <div class="block-content block-content-full text-end bg-body">

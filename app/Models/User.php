@@ -29,8 +29,8 @@ class User extends Authenticatable
         'estado',
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function CalidadJuridica(){
+        return $this->belongsTo(CalidadJuridica::class);
     }
 
     /**
