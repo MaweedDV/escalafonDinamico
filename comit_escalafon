@@ -1,0 +1,96 @@
+[33mcommit fe6eba2413897e752fcdafa561394ed0c4f678f6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdeveloper[m[33m, [m[1;31morigin/developer[m[33m)[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Fri Mar 28 15:25:08 2025 -0300
+
+    MOD. CARGOS ESCALAFON MODELO, VISTA, CONTROLADOR, DATATABLE Y MIGRACION
+    
+    En MODELO se crean las relaciones hasMany y belongsTo entre cargos escalafon y nombres cargos
+    En CONTROLADOR se crea metodo de insercion para realizar pruebas.
+    
+    Se crean vistas de cargios escalafón, pantalla inicio y modal de formulario de ingreso de datos.
+    Se modifica sidebar para linkeo de opcion CARGOS ESCALAFON.
+    
+    Se modifican las relaciones en migraciones cargos escalafon y nombres cargos.
+    Se modifican las relaciones en migraciones users y calidad juridica.
+
+[33mcommit 2bca18d7e0977b94176030f4ca1ed39afa8541a6[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Wed Mar 26 16:36:37 2025 -0300
+
+    MOD. NOMBRES CARGOS MODELO, VISTA, CONTROLADOR, DATATABLE Y MIGRACION
+    
+    Construcción de DataTable.
+    Creación del método insert del controlador de Nombres Cargos
+    Modificación de hasMany and BelongsTo en Modelos de CargosEscalafon y NombresCargos.
+    
+    Linkeo de Sidebar a index de nombres cargo
+    Creacion de Vista index cargos y modal de formulario de insercion.
+    
+    Revision de migracion tabla cargos_escalafon
+    
+    Enrutamiento de Web.php a vistas de nombres cargos Index y Store
+
+[33mcommit cf8583f8c8ab3cd83dc116362db3c074acb2eb04[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Wed Mar 26 15:37:38 2025 -0300
+
+    MOD. USERS, CONTROLADOR, VISTA Y MODELO
+    
+    Modificación de Controlador para la inserción de datos a tabla users.
+    Modificación de vista modal para envíos de datos al request de UserController/Store()
+
+[33mcommit 595975f16d2f73b2f3328cb022cf7bf8c54ebf8d[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Wed Mar 26 09:47:35 2025 -0300
+
+    CREACION DE CARGOS ESCALAFON, MIGRACIONES, MODELOS, CONTROLADORES Y DATATABLE 26032025
+    
+    Se crea estructura inicial de migración según requerimientos iniciales de usuario Stakeholder para los módulos de C.R.U.D de Nombres de Cargos y C.R.U.D de Cargos Escalafón.
+    
+    Además se crea Datatable con modelo estructural de Nombres Cargos.
+    Además se crea Datatable con modelo estructural de Cargos Escalafón.
+    
+    Se crea modelo y Controlador de Nombres Cargos.
+    Se crea modelo y Controlador de Cargos Escalafón.
+    
+    26-03-2025 MG
+
+[33mcommit bde9d982a4c038b9dbfa240a0b9e34ea7d0b042f[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Fri Mar 21 16:20:02 2025 -0300
+
+    Create EscalafonController y mod pantalla inicial
+    
+    Se crea controlador de escalafón y vista de pantalla inicial de sistema, linkeo de index a opciones de escalafón.
+
+[33mcommit 96422ff3d67bc4e42fbc0ee28576c16226dac699[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Thu Mar 20 15:32:17 2025 -0300
+
+    cambio sidebar
+    
+    sidebar que aparece solo.
+
+[33mcommit a54e452e07f5194703699d86aeff221dec5e6a60[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Wed Mar 19 17:00:05 2025 -0300
+
+    cambios 19032025 esstructura inicial
+
+[33mcommit 7a7f95d39673af2d81c24f226dc1759b8e5c20b9[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Wed Mar 19 10:50:52 2025 -0300
+
+    cambio de prueba
+
+[33mcommit 2bf1f28a59c83e3fbaf7643741f41bdebc2508d4[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Wed Mar 19 10:43:21 2025 -0300
+
+    SUBIDA DE PROYECTO
+
+[33mcommit c024853ac3a277dd59fd0a7c43618f1d12f32a0d[m
+Author: MaweedDV <desarrollopuertomontt@gmail.com>
+Date:   Wed Mar 19 10:26:32 2025 -0300
+
+    Initial commit
