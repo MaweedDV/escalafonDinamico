@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('cargos_escalafon', function (Blueprint $table) {
             $table->id();
             $table->integer('grado');
+            $table->unsignedBigInteger('Id_nombresCargos')->nullable();
             $table->integer('asignado');
             $table->timestamps();
 
-            $table->foreignId('Id_nombresCargos')->constrained('nombres_cargos');
+            $table->foreign('Id_nombresCargos')->references('id')->on('nombres_cargos');
         });
 
 

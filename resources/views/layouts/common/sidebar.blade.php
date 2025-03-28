@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="/">
+                    <a class="nav-main-link" href="{{route('cargosEscalafon.index')}}">
                         <i class="nav-main-link-icon fa fa-id-card"></i>
                         <span class="nav-main-link-name">Cargos Escalafón (Nombre cargo y Grado)</span>
                     </a>

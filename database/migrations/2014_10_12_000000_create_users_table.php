@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('rut');
+            $table->unsignedBigInteger('Id_calidad')->nullable();
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreignId('Id_calidad')->constrained('calidad_juridica');
+            $table->foreign('Id_calidad')->references('id')->on('calidad_juridica');
         });
     }
 

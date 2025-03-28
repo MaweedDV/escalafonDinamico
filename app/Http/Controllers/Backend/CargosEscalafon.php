@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\CargosEscalafonDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\CargosEscalafon as ModelsCargosEscalafon;
+use App\Models\NombresCargos;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class CargosEscalafon extends Controller
@@ -10,9 +14,14 @@ class CargosEscalafon extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CargosEscalafonDataTable $dataTable)
     {
-        //
+        $nombresCargos = NombresCargos::all();
+
+        $grados = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18);
+
+
+        return $dataTable->render('backend.sections.cargosEscalafon.index', compact('nombresCargos', 'grados'));
     }
 
     /**
@@ -28,7 +37,17 @@ class CargosEscalafon extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cargo = ModelsCargosEscalafon::create([
+            'Id_nombresCargos' => $request->nombreCargo,
+            'grado' => $request->grado,
+            'asignado' => 0,
+        ]);
+
+        if ($cargo instanceof Model) {
+
+            return to_route('cargosEscalafon.index')->with('success', 'Registro creado exitosamente!');
+
+        }
     }
 
     /**
