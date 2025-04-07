@@ -11,6 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\Html\SearchPane;
 use Yajra\DataTables\Services\DataTable;
 
 class CargosEscalafonDataTable extends DataTable
@@ -32,7 +33,10 @@ class CargosEscalafonDataTable extends DataTable
      */
     public function query(CargosEscalafon $model): QueryBuilder
     {
-        return $model->with(['NombresCargos'])->newQuery();
+        //return $model->with(['NombresCargos'])->newQuery();
+        return $model->with(['NombresCargos'])->newQuery()
+            ->join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
+            ->select('cargos_escalafons.*', 'nombres_cargos.nombre_cargo');
     }
 
     /**
@@ -44,7 +48,7 @@ class CargosEscalafonDataTable extends DataTable
                     ->setTableId('cargosescalafon-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
+                    // ->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
@@ -65,7 +69,7 @@ class CargosEscalafonDataTable extends DataTable
         return [
 
             //Column::make('id'),
-            Column::make('Id_nombresCargos')->title('Cargo')->data('nombres_cargos.nombre_cargo'),
+            Column::make('nombres_cargos.nombre_cargo')->title('Nombre del Cargo'),
             Column::make('grado'),
             Column::make('created_at'),
             Column::make('updated_at'),
