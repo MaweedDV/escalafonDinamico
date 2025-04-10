@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\CargosEscalafon;
 use App\Http\Controllers\Backend\EscalafonController;
+use App\Http\Controllers\Backend\FuncionariosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController as FrontEndHomeController;
@@ -32,6 +33,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/cargosEscalafon', [CargosEscalafon::class, 'index'])->name('cargosEscalafon.index');
     Route::post('/cargosEscalafon', [CargosEscalafon::class, 'store'])->name('cargosEscalafon.store');
 
+    //FUNCIONARIOS
+    Route::get('/funcionarios', [FuncionariosController::class, 'index'])->name('funcionarios.index');
+    Route::post('/funcionarios', [FuncionariosController::class, 'store'])->name('funcionarios.store');
 
 });
 

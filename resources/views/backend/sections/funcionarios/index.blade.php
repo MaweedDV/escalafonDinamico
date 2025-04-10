@@ -5,12 +5,12 @@
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
                 <div>
-                    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Nombres Escalafón</h1>
+                    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Funcionarios</h1>
                 </div>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Mantenedores</li>
-                        <li class="breadcrumb-item active" aria-current="page">Nombres Escalafón</li>
+                        <li class="breadcrumb-item active" aria-current="page">Funcionarios</li>
                     </ol>
                 </nav>
             </div>
@@ -22,7 +22,7 @@
             <br>{{-- espacio de separacion para el boton crear usuario y la parte superior del block --}}
             <div class="col-md-12">
                 <button type="button" class="btn btn-primary push mb-md-0" data-bs-toggle="modal"
-                    data-bs-target="#modal-block-fromleft">Nuevo Nombre Cargo</button>
+                    data-bs-target="#modal-block-fromleft">Ingresar Funcionario</button>
             </div>{{-- espacio de separacion entre el boton crear usuario y los botones de exportacion del datatable --}}
             <br>
             <div class="col-md-12">
@@ -33,7 +33,7 @@
     </div>
 @endsection
 
-@include('backend.sections.nombresCargos.modal')
+@include('backend.sections.funcionarios.modal')
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}

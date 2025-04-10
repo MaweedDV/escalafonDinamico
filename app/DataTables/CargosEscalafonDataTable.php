@@ -50,7 +50,7 @@ class CargosEscalafonDataTable extends DataTable
                     ->minifiedAjax()
                     // ->dom('Bfrtip')
                     ->orderBy(1)
-                    ->selectStyleSingle()
+                    //->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
                         Button::make('csv'),

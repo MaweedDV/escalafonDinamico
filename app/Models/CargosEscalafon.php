@@ -20,4 +20,8 @@ class CargosEscalafon extends Model
         return $this->belongsTo(NombresCargos::class, 'Id_nombresCargos');
     }
 
+    public function funcionarios(){
+        return $this->hasMany(Funcionarios::class);
+    }
+
 }
