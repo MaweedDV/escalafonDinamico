@@ -6,6 +6,10 @@ use App\DataTables\FuncionariosDataTable;
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\CalidadJuridica;
+use App\Models\CargosEscalafon;
+use App\Models\Funcionarios;
+use App\Models\Profesion;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class FuncionariosController extends Controller
@@ -16,9 +20,14 @@ class FuncionariosController extends Controller
     public function index(FuncionariosDataTable $dataTable)
     {
         $calidadJuridica = CalidadJuridica::all();
+        $estado = Funcionarios::select('estado')->distinct()->get();
+        $educacionFormal = Profesion::all();
+        $cargosEscalafon = CargosEscalafon::join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
+            ->select('cargos_escalafons.*', 'nombres_cargos.nombre_cargo as nombreCargo')
+            ->get();
 
 
-        return $dataTable->render('backend.sections.funcionarios.index', compact('calidadJuridica'));
+        return $dataTable->render('backend.sections.funcionarios.index', compact('calidadJuridica', 'cargosEscalafon', 'estado','educacionFormal'));
     }
 
     /**
@@ -34,7 +43,35 @@ class FuncionariosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+            $funcionarios = Funcionarios::create([
+                'decreto' => $request->decreto,
+                'fecha_decreto' => $request->fechaDecreto,
+                'rut' => $request->rut,
+                'nombre' => $request->nombre,
+                'apellido_paterno' => $request->apellidoPaterno,
+                'apellido_materno' => $request->apellidoMaterno,
+                'id_Cargo' => $request->cargoEscalafon,
+                'calificacion' => 0,
+                'lista' => 0,
+                'antiguedad_cargo' => $request->ant_cargo,
+                'antiguedad_grado' => $request->ant_grado,
+                'antiguedad_mismo_municipio' => $request->ant_mism_mun,
+                'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
+                'antiguedad_administracion_estado' => $request->ant_administracion_estado,
+                'educacion_formal' => $request->educacionFormal,
+                'estado' => $request->Estado,
+            ]);
+
+            if ($funcionarios instanceof Model) {
+
+                return to_route('funcionarios.index')->with('success', 'Registro creado exitosamente!');
+
+            }
+
+
+
     }
 
     /**

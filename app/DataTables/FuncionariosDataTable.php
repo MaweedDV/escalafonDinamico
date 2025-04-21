@@ -24,6 +24,24 @@ class FuncionariosDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             //->addColumn('action', 'funcionarios.action')
+            ->editColumn('fecha_decreto', function ($row) {
+                return $row->fecha_decreto ? \Carbon\Carbon::parse($row->fecha_decreto)->format('d-m-Y') : '';
+            })
+            ->editColumn('antiguedad_cargo', function ($row) {
+                return $row->antiguedad_cargo ? \Carbon\Carbon::parse($row->antiguedad_cargo)->format('d-m-Y') : '';
+            })
+            ->editColumn('antiguedad_grado', function ($row) {
+                return $row->antiguedad_grado ? \Carbon\Carbon::parse($row->antiguedad_grado)->format('d-m-Y') : '';
+            })
+            ->editColumn('antiguedad_mismo_municipio', function ($row) {
+                return $row->antiguedad_mismo_municipio ? \Carbon\Carbon::parse($row->antiguedad_mismo_municipio)->format('d-m-Y') : '';
+            })
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at ? \Carbon\Carbon::parse($row->created_at)->format('d-m-Y H:i:s') : '';
+            })
+            ->editColumn('updated_at', function ($row) {
+                return $row->updated_at ? \Carbon\Carbon::parse($row->updated_at)->format('d-m-Y H:i:s') : '';
+            })
             ->setRowId('id');
 
     }
@@ -36,8 +54,9 @@ class FuncionariosDataTable extends DataTable
         return $model->with(['CargosEscalafone'])->newQuery()
             ->join('cargos_escalafons', 'funcionarios.id_Cargo', '=', 'cargos_escalafons.id')
             ->join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
+            ->join('profesions', 'funcionarios.educacion_formal', '=', 'profesions.id')
             //->select('funcionarios.*','cargos_escalafons.grado','nombres_cargos.nombre_cargo');
-            ->select('funcionarios.*','cargos_escalafons.grado as cargo_grado', 'nombres_cargos.nombre_cargo as nombreCargo' );
+            ->select('funcionarios.*','cargos_escalafons.grado as cargo_grado', 'nombres_cargos.nombre_cargo as nombreCargo', 'profesions.profesion as profesion' );
 
     }
 
@@ -103,7 +122,9 @@ class FuncionariosDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            // Column::make('id'),
+            Column::make('decreto'),
+            Column::make('fecha_decreto'),
             Column::make('rut'),
             Column::make('nombre'),
             Column::make('apellido_paterno'),
@@ -117,7 +138,7 @@ class FuncionariosDataTable extends DataTable
             Column::make('antiguedad_mismo_municipio'),
             Column::make('antiguedad_mismo_municipio_detalle'),
             Column::make('antiguedad_administracion_estado'),
-            Column::make('educacion_formal'),
+            Column::make('profesion')->name('profesions.profesion')->title('Educacion Formal'),
             Column::make('estado'),
             Column::make('created_at'),
             Column::make('updated_at'),

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
+            $table->integer('decreto');
+            $table->date('fecha_decreto')->date_format('d-m-Y');
             $table->string('rut', 10)->unique();
             $table->string('nombre', 255);
             $table->string('apellido_paterno', 255);
@@ -20,12 +22,12 @@ return new class extends Migration
             $table->unsignedBigInteger('id_Cargo')->nullable();
             $table->integer('calificacion');
             $table->integer('lista');
-            $table->date('antiguedad_cargo');
-            $table->date('antiguedad_grado');
-            $table->date('antiguedad_mismo_municipio');
+            $table->date('antiguedad_cargo')->date_format('d-m-Y');
+            $table->date('antiguedad_grado')->date_format('d-m-Y');
+            $table->date('antiguedad_mismo_municipio')->date_format('d-m-Y');
             $table->integer('antiguedad_mismo_municipio_detalle');
             $table->integer('antiguedad_administracion_estado');
-            $table->string('educacion_formal');
+            $table->unsignedBigInteger('educacion_formal')->nullable();
             $table->enum('estado', ['vigente', 'retirado', 'fallecido']);
             $table->timestamps();
 

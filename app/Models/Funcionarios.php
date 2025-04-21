@@ -10,6 +10,8 @@ class Funcionarios extends Model
     use HasFactory;
 
     protected $fillable = [
+        'decreto',
+        'fecha_decreto',
         'rut',
         'nombre',
         'apellido_paterno',

@@ -11,10 +11,38 @@
                         </button>
                     </div>
                 </div>
-                <form method="POST" action="{{ route('users.store') }}">
+                <form method="POST" action="{{ route('funcionarios.store') }}">
                     @csrf
                     <div class="block-content">
                         <div class="row mb-4">
+                            <div class="col-12" style="text-align: center;">
+                                <h4>DECRETO</h4>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="example-ltf-email2">N° Decreto</label>
+                                <input type="text" class="form-control form-control" id="decreto" name="decreto"
+                                    placeholder="Ingrese decreto">
+                                @error('decreto')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="example-ltf-email2">Fecha decreto</label>
+                                <input type="date" class="form-control form-control" id="fechaDecreto" name="fechaDecreto"
+                                    placeholder="Ingrese fecha decreto">
+                                @error('fechaDecreto')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-12" style="text-align: center;">
+                                <h4>DATOS PERSONALES</h4>
+                            </div>
                             <div class="col-6">
                                 <label class="form-label" for="example-ltf-email2">Rut</label>
                                 <input type="text" class="form-control form-control" id="rut" name="rut"
@@ -55,46 +83,102 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12">
-                                <label class="form-label" for="example-ltf-email2">Correo electronico</label>
-                                <input type="email" class="form-control form-control" id="email" name="email"
-                                    placeholder="Ingrese su correo electronico">
-                            </div>
+                            {{-- ID CARGOS --}}
                             <div class="col-6">
-                                <label class="form-label" for="example-select-floating">Rol</label>
-                                <select class="form-select" id="example-select-floating" name="role"
+                                <label class="form-label" for="example-select-floating">Cargo Escalafón</label>
+                                <select class="form-select" id="example-select-floating" name="cargoEscalafon"
                                     aria-label="Floating label select example">
-                                    <option selected="" disabled>Seleccione un rol</option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="usuario">Usuario Normal</option>
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label" for="example-select-floating">Calidad Juridica</label>
-                                <select class="form-select" id="example-select-floating" name="calidadJuridica"
-                                    aria-label="Floating label select example">
-                                    <option selected="" disabled>Seleccione una calidad</option>
-                                    @foreach ($calidadJuridica as $calidadJuridica)
-                                    <option {{ old('rut') == $calidadJuridica->id ? 'selected' : '' }} value="{{ $calidadJuridica->id }}"> {{ $calidadJuridica->nombre_calidad }}</option>
+                                    <option selected="" disabled>Seleccione un cargo</option>
+                                    @foreach ($cargosEscalafon as $cargosEscalafon)
+                                    <option {{ old('cargoEscalafon') == $cargosEscalafon->id ? 'selected' : '' }} value="{{ $cargosEscalafon->id }}"> {{ $cargosEscalafon->nombreCargo." ".$cargosEscalafon->grado."°" }}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            {{-- ANTIGUEDAD EN EL CARGO EN FORMATO DE FECHA INICIAL DE INGRESO AL Cargo --}}
                             <div class="col-6">
-                                <label class="form-label" for="example-ltf-email2">Contraseña</label>
-                                <input type="password" class="form-control form-control" id="example-ltf-email2"
-                                    name="password" placeholder="Ingrese su contraseña">
+                                <label class="form-label" for="example-ltf-email2">Antigüedad en el Cargo</label>
+                                <input type="date" class="form-control form-control" id="ant_cargo" name="ant_cargo"
+                                    placeholder="Ingrese Fecha de antiguedad">
+                                @error('ant_cargo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
+                            {{-- ANTIGUEDAD EN EL GRADO EN FORMATO DE FECHA INICIAL DE INGRESO AL GRADO --}}
                             <div class="col-6">
-                                <label class="form-label" for="example-ltf-email2">Confirmar contraseña</label>
-                                <input type="password" class="form-control form-control" id="signup-password-confirm"
-                                    name="password_confirmation" placeholder="Confirme su contraseña" />
+                                <label class="form-label" for="example-ltf-email2">Antigüedad en el Grado</label>
+                                <input type="date" class="form-control form-control" id="ant_grado" name="ant_grado"
+                                    placeholder="Ingrese Fecha de antiguedad">
+                                @error('ant_grado')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                             {{-- ANTIGUEDAD EN EL MISMO MUN EN FORMATO DE FECHA INICIAL DE INGRESO AL MISMO MUN --}}
+                             <div class="col-6">
+                                <label class="form-label" for="example-ltf-email2">Antigüedad Mismo Municipio</label>
+                                <input type="date" class="form-control form-control" id="ant_mism_mun" name="ant_mism_mun"
+                                    placeholder="Ingrese Fecha de antiguedad">
+                                @error('ant_mism_mun')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-6">
-                            <label class="form-label" for="example-ltf-email2">Activo</label>
-                            <input class="form-check-input" type="checkbox" value="1"
-                            id="example-switch-default1" name="activo" checked=""/>
+
+                        <div class="row mb-4">
+                            <div class="col-12" style="text-align: center;">
+                                <h4>DETALLE</h4>
+                            </div>
+                            {{-- ANTIGUEDAD EN EL MISMO MUN DETALLE EN FORMATO DE FECHA INICIAL DE INGRESO AL MISMO MUN DETALLE --}}
+                            <div class="col-6">
+                                <label class="form-label" for="example-ltf-email2">Antigüedad Mismo Municipio Detalle</label>
+                                <input type="text" class="form-control form-control" id="ant_mism_mun_detalle" name="ant_mism_mun_detalle"
+                                    placeholder="Ingrese Total de Días">
+                                @error('ant_mism_mun_detalle')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            {{-- ANTIGUEDAD EN EL MISMO MUN EN FORMATO DE FECHA INICIAL DE INGRESO AL MISMO MUN --}}
+                            <div class="col-6">
+                                <label class="form-label" for="example-ltf-email2">Antigüedad Total Administracion del Estado</label>
+                                <input type="text" class="form-control form-control" id="ant_administracion_estado" name="ant_administracion_estado"
+                                    placeholder="Ingrese Total de Días">
+                                @error('ant_administracion_estado')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                             {{-- Educación formal --}}
+                             <div class="col-6">
+                                <label class="form-label" for="example-select-floating">Educacion Formal</label>
+                                <select class="form-select" id="example-select-floating" name="educacionFormal"
+                                    aria-label="Floating label select example">
+                                    <option selected="" disabled>Seleccione una profesion</option>
+                                    @foreach ($educacionFormal as $educacionFormal)
+                                    <option {{ old('educacionFormal') == $educacionFormal->profesion ? 'selected' : '' }} value="{{ $educacionFormal->profesion }}"> {{ $educacionFormal->profesion}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- Estado --}}
+                            <div class="col-6">
+                                <label class="form-label" for="example-select-floating">Estado</label>
+                                <select class="form-select" id="example-select-floating" name="Estado"
+                                    aria-label="Floating label select example">
+                                    <option selected="" disabled>Seleccione un Estado</option>
+                                    <option value="vigente">Vigente</option>
+                                    <option value="retirado">Retirado</option>
+                                    <option value="fallecido">Fallecido</option>
+                                </select>
+                            </div>
                         </div>
+                    </div>
                     </div>
                     <div class="block-content block-content-full text-end bg-body">
                         <button type="button" class="btn btn-sm btn-alt-secondary"
