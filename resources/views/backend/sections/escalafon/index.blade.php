@@ -1,344 +1,199 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="bg-body-light">
-        <div class="content content-full">
-            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <div>
-                    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Escalafón</h1>
-
-                </div>
-                <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Administración</li>
-                        <li class="breadcrumb-item active" aria-current="page">Escalafón</li>
-                    </ol>
-                </nav>
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <div>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Escalafón</h1>
             </div>
+            <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Administración</li>
+                    <li class="breadcrumb-item active" aria-current="page">Escalafón</li>
+                </ol>
+            </nav>
         </div>
     </div>
-    <div class="content">
-        <div class="row items-push">
-            <div class="block block-rounded">
-                <div class="block-header block-header-default">
-                  <h3 class="block-title">JEFATURA GRADO 7 (8 CARGOS)</h3>
-                  <div class="block-options">
-                    {{-- <div class="block-options-item">
-                      <code>.table-bordered</code>
-                    </div> --}}
-                  </div>
+</div>
+
+<div class="content">
+    <div class="row items-push">
+        <div class="block block-rounded">
+            <div class="mb-3">
+    <input type="text" id="buscador-funcionarios" class="form-control" placeholder="Buscar por nombre o RUT...">
+</div>
+    <div class="accordion" id="accordionCargos">
+    @foreach($nombresCargos as $nombreCargo)
+    <div class="grupo-cargo">
+        <h5 class="text-center my-4">
+            {{ $nombreCargo->nombre_cargo }}
+            (Total Cargos: {{ $nombreCargo->cargos_escalafon->count() }})
+        </h5>
+
+        @php
+            $cargosPorGrado = $nombreCargo->cargos_escalafon->groupBy('grado');
+        @endphp
+
+        @foreach($cargosPorGrado as $grado => $cargos)
+            @php
+                $funcionarios = $cargos->flatMap->funcionarios->sortBy([
+                    ['calificacion', 'desc'],
+                    ['antiguedad_cargo', 'asc'],
+                    ['antiguedad_grado', 'asc'],
+                    ['antiguedad_mismo_municipio', 'asc'],
+                ]);
+                $totalCargosPorGrado = $cargos->count();
+                $accordionId = 'collapse-' . $nombreCargo->id . '-' . $grado;
+            @endphp
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-{{ $accordionId }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $accordionId }}" aria-expanded="false" aria-controls="{{ $accordionId }}">
+                        {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
+                        ({{ $funcionarios->count() }} Funcionarios) - Total Cargos: {{ $totalCargosPorGrado }}
+                    </button>
+                </h2>
+                <div id="{{ $accordionId }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $accordionId }}" data-bs-parent="#accordionCargos">
+                    <div class="accordion-body">
+                        <table class="table table-bordered table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="width: 50px;">Lugar</th>
+                                    <th class="text-center" style="width: 200px">Nombre</th>
+                                    <th class="text-center" style="width: 150px">Rut</th>
+                                    <th>Grado</th>
+                                    <th>Calif.</th>
+                                    <th>Lista</th>
+                                    <th class="text-center">Antig. Cargo</th>
+                                    <th class="text-center">Antig. Grado</th>
+                                    <th>Antig. Mismo Municipio</th>
+                                    <th>Antig. Mismo Municipio Detalle</th>
+                                    <th>Antig. Estado</th>
+                                    <th>Educación Formal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $indexfunc = 0; @endphp
+                                @foreach($funcionarios as $funcionario)
+                                    @php
+                                        $profesion = App\Models\Profesion::find($funcionario->educacion_formal);
+                                    @endphp
+                                    <tr>
+                                        <td class="text-center">{{ ++$indexfunc }}</td>
+                                        <td>{{ $funcionario->apellido_paterno . ' ' . $funcionario->apellido_materno . ' ' . $funcionario->nombre }}</td>
+                                        <td class="text-center">{{ $funcionario->rut }}</td>
+                                        <td class="text-center">{{ $grado }}</td>
+                                        <td class="text-center">{{ $funcionario->calificacion ?? '-' }}</td>
+                                        <td class="text-center">{{ $funcionario->lista ?? '-' }}</td>
+                                        <td class="text-center">{{ $funcionario->antiguedad_cargo ?? '-' }}</td>
+                                        <td class="text-center">{{ $funcionario->antiguedad_grado ?? '-' }}</td>
+                                        <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio ?? '-' }}</td>
+                                        <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio_detalle ?? '-' }}</td>
+                                        <td class="text-center">{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
+                                        <td class="text-center">{{ $profesion->profesion ?? '-' }}</td>
+                                    </tr>
+                                @endforeach
+
+                                {{-- Vacantes --}}
+                                @for ($v = $indexfunc + 1; $v <= $totalCargosPorGrado; $v++)
+                                    <tr>
+                                        <td class="text-center">{{ $v }}</td>
+                                        <td colspan="11">VACANTE</td>
+                                    </tr>
+                                @endfor
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="block-content">
-                  <table class="table table-bordered table-vcenter">
-                    <thead>
-                      <tr>
-                        <th class="text-center" style="width: 50px;">Lugar</th>
-                        <th class="text-center" style="width: 200px">Nombre</th>
-                        <th class="text-center" style="width: 150px">Rut</th>
-                        <th>Grado</th>
-                        <th>Calif.</th>
-                        <th>Lista</th>
-                        <th class="text-center" style="width: 150px">Antig. Cargo</th>
-                        <th class="text-center" style="width: 150px">Antig. Grado</th>
-                        <th>Antig. Mismo Municipio</th>
-                        <th>Antig. Mismo Municipio En Detalle (Años-Meses-Dias)</th>
-                        <th>Antig.Administ. Estado</th>
-                        <th>Educación Formal</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="text-center" scope="row">1</th>
-                        <td class="fw-semibold">
-                          <a href="be_pages_generic_profile.html">HENANDEZ ALVAREZ VIOLA</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>8204335-7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-04-1978</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span> <span>
-                        </td>
-                        <td class="text-center">
-                            <h6>SECRETARIA ADMINISTRATIVA</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="text-center" scope="row">2</th>
-                        <td class="fw-semibold">
-                            <a href="be_pages_generic_profile.html">VARGAS GONZALEZ MONICA</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>6836668-2</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-08-1978</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span> <span>
-                        </td>
-                        <td class="text-center">
-                            <h6>ENSEÑANZA MEDIA</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="text-center" scope="row">3</th>
-                        <td class="fw-semibold">
-                          <a href="be_pages_generic_profile.html">CASTILLO ZUÑIGA VERÓNICA</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>8552913-7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-01-1982</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span>Decreto N° 4823 del 04-04-2024 empate<span>
-                        </td>
-                        <td class="text-center">
-                            <h6>SECRETARIA EJECUTIVA</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="text-center" scope="row">4</th>
-                        <td class="fw-semibold">
-                          <a href="be_pages_generic_profile.html">ARRIAGADA ESPAÑA SERGIO</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>7951080-7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>02-01-2019</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-01-1982</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span>Decreto N° 4823 del 04-04-2024 empate<span>
-                        </td>
-                        <td class="text-center">
-                            <h6>CONTADOR GENERAL</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="text-center" scope="row">5</th>
-                        <td class="fw-semibold">
-                          <a href="be_pages_generic_profile.html">VERA ALVARADO BERNARDITA</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>7874672-6</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>17-01-2020</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>17-01-2020</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>15-05-1979</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span> <span>
-                        </td>
-                        <td class="text-center">
-                            <h6>ENSEÑADA MEDIA</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="text-center" scope="row">6</th>
-                        <td class="fw-semibold">
-                          <a href="be_pages_generic_profile.html">REBOLLEDO OYARZUN WILIAMS</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>8059490-9</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-05-2021</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-05-2021</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>15-01-1982</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span> <span>
-                        </td>
-                        <td class="text-center">
-                            <h6>CONTADOR AUDITOR</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="text-center" scope="row">7</th>
-                        <td class="fw-semibold">
-                          <a href="be_pages_generic_profile.html">ALFARO VELASQUEZ MARGARITA</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>6173327-2</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>06-06-2023</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>06-06-2023</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-07-1979</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span> <span>
-                        </td>
-                        <td class="text-center">
-                            <h6>ENSEÑANZA MEDIA</h6>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="text-center" scope="row">8</th>
-                        <td class="fw-semibold">
-                          <a href="be_pages_generic_profile.html">OYARZUN GALLARDO FRANCISCO</a>
-                        </td>
-                        <td class="text-center">
-                          <h6>5885182-5</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>7</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>70</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>1</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>09-02-2020</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>09-02-2020</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6>01-01-1982</h6>
-                        </td>
-                        <td class="text-center">
-                            <h6> </h6>
-                        </td>
-                        <td class="text-center">
-                            <span>7 Años 7 Meses Tesorería <span>
-                        </td>
-                        <td class="text-center">
-                            <h6>ENSEÑANZA MEDIA</h6>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-        </div>
+            </div>
+        @endforeach
     </div>
+    @endforeach
+</div>
+
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    document.getElementById('buscador-funcionarios').addEventListener('input', function () {
+    const valor = this.value.toLowerCase().trim();
+
+    document.querySelectorAll('.grupo-cargo').forEach(grupo => {
+        const encabezado = grupo.querySelector('h5');
+        const textoEncabezado = encabezado.textContent.toLowerCase();
+
+        // ¿Coincide el texto buscado con el encabezado?
+        const coincidenciaEncabezado = textoEncabezado.includes(valor);
+
+        let grupoCoincide = false;
+
+        const acordeones = grupo.querySelectorAll('.accordion-item');
+
+        acordeones.forEach(item => {
+            const filas = item.querySelectorAll('tbody tr');
+            let coincidencias = 0;
+
+            filas.forEach(fila => {
+                const textoFila = fila.textContent.toLowerCase();
+                const esVacante = textoFila.includes('vacante');
+
+                // Si el encabezado coincide, mostramos TODO sin filtrar
+                if (valor === '' || coincidenciaEncabezado) {
+                    fila.style.display = '';
+                    coincidencias++;
+                } else {
+                    // Sino filtramos por filas
+                    if (!esVacante && textoFila.includes(valor)) {
+                        fila.style.display = '';
+                        coincidencias++;
+                    } else {
+                        fila.style.display = 'none';
+                    }
+                }
+            });
+
+            // Mostrar acordeón si alguna fila coincide o si coincide el encabezado
+            if (coincidencias > 0 || coincidenciaEncabezado || valor === '') {
+                item.style.display = '';
+                grupoCoincide = true;
+            } else {
+                item.style.display = 'none';
+            }
+
+            // Controlar apertura/cierre del acordeón
+            const collapse = item.querySelector('.accordion-collapse');
+            const button = item.querySelector('.accordion-button');
+
+            if (valor === '') {
+                collapse.classList.remove('show');
+                button.classList.add('collapsed');
+                button.setAttribute('aria-expanded', 'false');
+            } else if (coincidencias > 0 || coincidenciaEncabezado) {
+                collapse.classList.add('show');
+                button.classList.remove('collapsed');
+                button.setAttribute('aria-expanded', 'true');
+            } else {
+                collapse.classList.remove('show');
+                button.classList.add('collapsed');
+                button.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Mostrar u ocultar grupo y encabezado
+        if (valor === '') {
+            grupo.style.display = '';
+            encabezado.style.display = '';
+        } else {
+            grupo.style.display = grupoCoincide ? '' : 'none';
+            encabezado.style.display = grupoCoincide ? '' : 'none';
+        }
+    });
+});
+
+</script>
+@endpush
+
+
 @endsection

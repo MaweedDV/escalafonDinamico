@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\CargosEscalafonDataTable;
+use App\DataTables\CalificacionDataTable;
+use App\DataTables\NombresCargosDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\CargosEscalafon as ModelsCargosEscalafon;
-use App\Models\NombresCargos;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Funcionarios;
 use Illuminate\Http\Request;
 
-class CargosEscalafon extends Controller
+class CalificacionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(CargosEscalafonDataTable $dataTable)
+    public function index(CalificacionDataTable $dataTable, NombresCargosDataTable $nombresCargosDataTable)
     {
-        $nombresCargos = NombresCargos::all();
-
-        $grados = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18);
-
-
-        return $dataTable->render('backend.sections.cargosEscalafon.index', compact('nombresCargos', 'grados'));
+        return $dataTable->render('backend.sections.calificaciones.index');
     }
 
     /**
@@ -32,26 +26,27 @@ class CargosEscalafon extends Controller
         //
     }
 
+    public function updateCampo(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:funcionarios,id',
+            'column' => 'required|in:calificacion',
+            'value' => 'nullable|string',
+        ]);
+
+        $funcionario = Funcionarios::findOrFail($request->id);
+        $funcionario->{$request->column} = $request->value;
+        $funcionario->save();
+
+        return response()->json(['success' => true]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-
-
-        for ($i = 1; $i <= $request->cantidad_cargo; $i++) {
-            $cargo = ModelsCargosEscalafon::create([
-                'Id_nombresCargos' => $request->nombreCargo,
-                'grado' => $request->grado,
-                'asignado' => 0,
-            ]);
-        }
-
-        if ($cargo instanceof Model) {
-
-            return to_route('cargosEscalafon.index')->with('success', 'Registro creado exitosamente!');
-
-        }
+        //
     }
 
     /**

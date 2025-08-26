@@ -30,7 +30,7 @@ class Funcionarios extends Model
 
     public function CargosEscalafone()
     {
-        return $this->belongsTo(CargosEscalafon::class, 'id_Cargo');
+        return $this->belongsTo(CargosEscalafon::class, 'id_Cargo', 'id');
     }
 
 }

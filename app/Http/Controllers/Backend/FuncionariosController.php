@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CalidadJuridica;
 use App\Models\CargosEscalafon;
 use App\Models\Funcionarios;
+use App\Models\NombresCargos;
 use App\Models\Profesion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -23,8 +24,9 @@ class FuncionariosController extends Controller
         $estado = Funcionarios::select('estado')->distinct()->get();
         $educacionFormal = Profesion::all();
         $cargosEscalafon = CargosEscalafon::join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
-            ->select('cargos_escalafons.*', 'nombres_cargos.nombre_cargo as nombreCargo')
+            ->select('cargos_escalafons.*', 'nombres_cargos.nombre_cargo as nombreCargo')->where('cargos_escalafons.asignado', 0)
             ->get();
+
 
 
         return $dataTable->render('backend.sections.funcionarios.index', compact('calidadJuridica', 'cargosEscalafon', 'estado','educacionFormal'));
@@ -54,14 +56,20 @@ class FuncionariosController extends Controller
                 'apellido_materno' => $request->apellidoMaterno,
                 'id_Cargo' => $request->cargoEscalafon,
                 'calificacion' => 0,
-                'lista' => 0,
+                'lista' => 1,
                 'antiguedad_cargo' => $request->ant_cargo,
                 'antiguedad_grado' => $request->ant_grado,
                 'antiguedad_mismo_municipio' => $request->ant_mism_mun,
                 'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
                 'antiguedad_administracion_estado' => $request->ant_administracion_estado,
                 'educacion_formal' => $request->educacionFormal,
-                'estado' => $request->Estado,
+                'estado' => 'vigente',
+            ]);
+
+            $cargo = CargosEscalafon::find($request->cargoEscalafon);
+
+            $cargo->update([
+                'asignado' => 1,
             ]);
 
             if ($funcionarios instanceof Model) {
@@ -87,7 +95,16 @@ class FuncionariosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $funcionario = Funcionarios::find($id);
+        $calidadJuridica = CalidadJuridica::all();
+        $cargosEscalafon = CargosEscalafon::join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
+            ->select('cargos_escalafons.*', 'nombres_cargos.nombre_cargo as nombreCargo')->get();
+        $educacionFormal = Profesion::all();
+        $cargos = CargosEscalafon::find($funcionario->id_Cargo);
+        $nombresCargos = NombresCargos::find($cargos->Id_nombresCargos);
+
+
+        return view('backend.sections.funcionarios.edit', compact('nombresCargos', 'cargos', 'funcionario', 'calidadJuridica', 'cargosEscalafon', 'educacionFormal'));
     }
 
     /**
@@ -95,7 +112,31 @@ class FuncionariosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+         $funcionario = Funcionarios::find($id);
+
+            $funcionario->update([
+                'rut' => $request->rut,
+                'nombre' => $request->nombre,
+                'apellido_paterno' => $request->apellidoPaterno,
+                'apellido_materno' => $request->apellidoMaterno,
+                'antiguedad_cargo' => $request->ant_cargo,
+                'antiguedad_grado' => $request->ant_grado,
+                'antiguedad_mismo_municipio' => $request->ant_mism_mun,
+                'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
+                'antiguedad_administracion_estado' => $request->ant_administracion_estado,
+                'educacion_formal' => $request->educacionFormal,
+                'estado' => $request->Estado,
+            ]);
+
+
+            if ($funcionario instanceof Model) {
+
+                return to_route('funcionarios.index')->with('success', 'Registro actualizado exitosamente!');
+
+            }
+
+
     }
 
     /**
@@ -103,6 +144,16 @@ class FuncionariosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         $id = decrypt($id);
+
+        $funcionario = Funcionarios::findOrFail($id);
+
+        if ($funcionario instanceof Model) {
+            $funcionario->delete();
+
+            //toastr()->warning('Data has been deleted successfully!');
+
+            return to_route('users.index')->with('flash', 'Registro eliminado exitosamente!');
+        }
     }
 }

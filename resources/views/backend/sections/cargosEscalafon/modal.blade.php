@@ -15,7 +15,7 @@
                     @csrf
                     <div class="block-content">
                         <div class="row mb-4">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label class="form-label" for="example-select-floating">Nombre Cargo</label>
                                 <select class="form-select" id="example-select-floating" name="nombreCargo"
                                     aria-label="Floating label select example">
@@ -25,7 +25,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label class="form-label" for="example-select-floating">Grado</label>
                                 <select class="form-select" id="example-select-floating" name="grado"
                                     aria-label="Floating label select example">
@@ -34,6 +34,16 @@
                                     <option {{ old('gado') == $grados ? 'selected' : '' }} value="{{ $grados }}"> {{ $grados }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label" for="example-ltf-email2">Cantidad</label>
+                                <input type="text" class="form-control form-control" id="cantidad_cargo" name="cantidad_cargo"
+                                    placeholder="Ingrese cantidad de cargos">
+                                @error('cantidad_cargo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>

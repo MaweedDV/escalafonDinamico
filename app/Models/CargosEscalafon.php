@@ -21,7 +21,7 @@ class CargosEscalafon extends Model
     }
 
     public function funcionarios(){
-        return $this->hasMany(Funcionarios::class);
+        return $this->hasMany(Funcionarios::class, 'id_Cargo', 'id');
     }
 
 }

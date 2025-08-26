@@ -105,7 +105,19 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+         $user = User::find($id);
+         $calidadJuridica = CalidadJuridica::all();
+         $calidadSeleccionada = CalidadJuridica::find($user->Id_calidad);
+
+        if ($user->estado == 1) {
+            $check = 'checked=""';
+        }else{
+            $check = '';
+        };
+
+
+
+        return view('backend.sections.users.edit', compact ('user','check', 'calidadJuridica', 'calidadSeleccionada'));
     }
 
     /**
@@ -113,7 +125,39 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = USer::find($id);
+
+        $user->update([
+            'nombre' => $request->get('nombre'),
+            'apellido_paterno' => $request->get('apellidoPaterno'),
+            'apellido_materno' => $request->get('apellidoMaterno'),
+            'email' => $request->get('email'),
+            'role' => $request->get('role'),
+            'Id_calidad' => $request->get('calidadJuridica'),
+        ]);
+
+        if ($request->get('password')){
+            $user->update([
+                'password' => bcrypt($request->get('password'))
+            ]);
+        }
+
+
+            if ($request->get('activo') == null){
+                $user->update([
+                    'estado' => 0
+                ]);
+
+            }else{
+
+                $user->update([
+                    'estado' => 1
+                ]);
+            }
+
+
+
+        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente');
     }
 
     /**
@@ -128,7 +172,7 @@ class UserController extends Controller
         if ($user instanceof Model) {
             $user->delete();
 
-            toastr()->warning('Data has been deleted successfully!');
+            //toastr()->warning('Data has been deleted successfully!');
 
             return to_route('users.index')->with('flash', 'Registro eliminado exitosamente!');
         }

@@ -42,7 +42,41 @@ class FuncionariosDataTable extends DataTable
             ->editColumn('updated_at', function ($row) {
                 return $row->updated_at ? \Carbon\Carbon::parse($row->updated_at)->format('d-m-Y H:i:s') : '';
             })
-            ->setRowId('id');
+            ->setRowId('id')
+            ->addColumn('action',
+            '<div>
+                <a href="{{ route(\'funcionarios.edit\', $id )}}" class="btn btn-sm btn-alt-primary" title="Editar"><i class="fa fa-edit"></i></a>
+                <form action="{{ route(\'funcionarios.destroy\', $id) }}" method="POST" style="display: inline-block;">
+                    @csrf
+                    @method(\'DELETE\')
+                    <button type="submit" class="btn btn-sm btn-alt-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                </form>
+                <script type="module">
+                $(document).ready(function() {
+                    $(".btn-alt-danger").on("click", function(e) {
+                        e.preventDefault();
+                        var $button = $(this);
+                        Swal.fire({
+                            title: "¿Estás seguro?",
+                            text: "Una vez eliminado, no podrás recuperar este registro!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#6f9c40",
+                            cancelButtonColor: "#e04f1a",
+                            confirmButtonText: "Sí, eliminarlo",
+                            cancelButtonText: "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $button.parent().submit();
+                                // update datatable
+                                table.draw();
+                            }
+                        });
+                    });
+                });
+                </script>
+            </div>');
+
 
     }
 
@@ -56,7 +90,8 @@ class FuncionariosDataTable extends DataTable
             ->join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
             ->join('profesions', 'funcionarios.educacion_formal', '=', 'profesions.id')
             //->select('funcionarios.*','cargos_escalafons.grado','nombres_cargos.nombre_cargo');
-            ->select('funcionarios.*','cargos_escalafons.grado as cargo_grado', 'nombres_cargos.nombre_cargo as nombreCargo', 'profesions.profesion as profesion' );
+            ->select('funcionarios.*','cargos_escalafons.grado as cargo_grado', 'nombres_cargos.nombre_cargo as nombreCargo', 'profesions.profesion as profesion' )
+            ;
 
     }
 
@@ -109,7 +144,7 @@ class FuncionariosDataTable extends DataTable
                     ->buttons([
                         Button::make('excel'),
                         Button::make('csv'),
-                        //Button::make('pdf'),
+                        Button::make('pdf'),
                         Button::make('print'),
                         // Button::make('reset'),
                         // Button::make('reload')
@@ -122,7 +157,13 @@ class FuncionariosDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            // Column::make('id'),
+            //Column::make('id'),
+             Column::computed('action')
+            ->title('Opciones')
+              ->exportable(false)
+              ->printable(false)
+              ->width(150)
+              ->addClass('text-center'),
             Column::make('decreto'),
             Column::make('fecha_decreto'),
             Column::make('rut'),

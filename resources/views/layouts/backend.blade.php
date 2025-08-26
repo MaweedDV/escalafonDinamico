@@ -10,11 +10,20 @@
     <meta name="description" content="">
     <meta name="author" content="pixelcave">
     <meta name="robots" content="noindex, nofollow">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <link rel="shortcut icon" href="{{ asset('media/favicons/favicon.png') }}">
     <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('media/favicons/favicon-192x192.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('media/favicons/apple-touch-icon-180x180.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+     <!-- tus estilos y meta tags -->
+     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+     <!-- jQuery primero -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     @yield('css')

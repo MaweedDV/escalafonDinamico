@@ -22,7 +22,39 @@ class UsersDataTable extends dataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->setRowId('id');
+        ->setRowId('id')
+        ->addColumn('action', '<div>
+                <a href="{{ route(\'users.edit\', $id )}}" class="btn btn-sm btn-alt-primary" title="Editar"><i class="fa fa-edit"></i></a>
+                 <form action="{{ route(\'users.destroy\', $id) }}" method="POST" style="display: inline-block;">
+                @csrf
+                @method(\'DELETE\')
+                <button type="submit" class="btn btn-sm btn-alt-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+            </form>
+            <script type="module">
+            $(document).ready(function() {
+                $(".btn-alt-danger").on("click", function(e) {
+                    e.preventDefault();
+                    var $button = $(this);
+                    Swal.fire({
+                        title: "¿Estás seguro?",
+                        text: "Una vez eliminado, no podrás recuperar este registro!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#6f9c40",
+                        cancelButtonColor: "#e04f1a",
+                        confirmButtonText: "Sí, eliminarlo",
+                        cancelButtonText: "Cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $button.parent().submit();
+                            // update datatable
+                            table.draw();
+                        }
+                    });
+                });
+            });
+            </script>
+                </div>');
     }
     /**
      * Get the query source of dataTable.
@@ -74,6 +106,12 @@ class UsersDataTable extends dataTable
             //     ->exportable(true)
             //     ->printable(true)
             //     ->width(5),
+            Column::computed('action')
+            ->title('Opciones')
+              ->exportable(false)
+              ->printable(false)
+              ->width(150)
+              ->addClass('text-center'),
             Column::make('id')->title('#')->width(5),
             Column::make('rut')->title('Rut'),
             Column::make('nombre')->title('Nombre'),
