@@ -17,45 +17,57 @@
     </div>
 </div>
 
-<div class="content">
-    <div class="row items-push">
-        <div class="block block-rounded">
+    <div class="content">
+        <div class="row items-push">
+            <div class="block block-rounded">
             <div class="mb-3">
-    <input type="text" id="buscador-funcionarios" class="form-control" placeholder="Buscar por nombre o RUT...">
-</div>
+            <label style="margin-top: 20px;" for="buscador-funcionarios" class="form-label">Buscar Funcionarios:</label>
+            <input  type="text" id="buscador-funcionarios" class="form-control" placeholder="Buscar por nombre o RUT...">
+    </div>
+    <div class="mb-3 d-flex justify-content-end">
+        <button id="expandirTodoBtn" class="btn btn-sm btn-success" style="display: flex; margin-right: 10px;">Expandir todo</button>
+         <button id="colapsarTodoBtn" class="btn btn-sm btn-danger">Colapsar todo</button>
+    </div>
     <div class="accordion" id="accordionCargos">
-    @foreach($nombresCargos as $nombreCargo)
-    <div class="grupo-cargo">
-        <h5 class="text-center my-4">
-            {{ $nombreCargo->nombre_cargo }}
-            (Total Cargos: {{ $nombreCargo->cargos_escalafon->count() }})
-        </h5>
+                    @foreach($nombresCargos as $nombreCargo)
+                    <div class="grupo-cargo">
+                        <h5 class="text-center my-4">
+                            {{ $nombreCargo->nombre_cargo }}
+                            (Total Cargos: {{ $nombreCargo->cargos_escalafon->count() }})
+                        </h5>
 
-        @php
-            $cargosPorGrado = $nombreCargo->cargos_escalafon->groupBy('grado');
-        @endphp
+                        @php
+                            $cargosPorGrado = $nombreCargo->cargos_escalafon->groupBy('grado');
+                        @endphp
 
-        @foreach($cargosPorGrado as $grado => $cargos)
-            @php
-                $funcionarios = $cargos->flatMap->funcionarios->sortBy([
-                    ['calificacion', 'desc'],
-                    ['antiguedad_cargo', 'asc'],
-                    ['antiguedad_grado', 'asc'],
-                    ['antiguedad_mismo_municipio', 'asc'],
-                ]);
-                $totalCargosPorGrado = $cargos->count();
-                $accordionId = 'collapse-' . $nombreCargo->id . '-' . $grado;
-            @endphp
+                        @foreach($cargosPorGrado as $grado => $cargos)
+                            @php
+                                $funcionarios = $cargos->flatMap->funcionarios->sortBy([
+                                    ['calificacion', 'desc'],
+                                    ['antiguedad_cargo', 'asc'],
+                                    ['antiguedad_grado', 'asc'],
+                                    ['antiguedad_mismo_municipio', 'asc'],
+                                ]);
+                                $totalCargosPorGrado = $cargos->count();
+                                $accordionId = 'collapse-' . $nombreCargo->id . '-' . $grado;
+                            @endphp
 
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="heading-{{ $accordionId }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $accordionId }}" aria-expanded="false" aria-controls="{{ $accordionId }}">
-                        {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
-                        ({{ $funcionarios->count() }} Funcionarios) - Total Cargos: {{ $totalCargosPorGrado }}
-                    </button>
-                </h2>
-                <div id="{{ $accordionId }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $accordionId }}" data-bs-parent="#accordionCargos">
-                    <div class="accordion-body">
+                        <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-{{ $accordionId }}">
+                        <button class="accordion-button" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#{{ $accordionId }}"
+                                aria-expanded="true"
+                                aria-controls="{{ $accordionId }}">
+                            {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
+                            ({{ $funcionarios->count() }} Funcionarios) - Total Cargos: {{ $totalCargosPorGrado }}
+                        </button>
+                    </h2>
+                    <div id="{{ $accordionId }}"
+                        class="accordion-collapse collapse show"
+                        aria-labelledby="heading-{{ $accordionId }}">
+                        <div class="accordion-body">
+
                         <table class="table table-bordered table-vcenter">
                             <thead>
                                 <tr>
@@ -104,6 +116,7 @@
                                 @endfor
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -114,6 +127,9 @@
 
     </div>
 </div>
+
+
+
 
 @push('scripts')
 <script>
@@ -191,6 +207,30 @@
         }
     });
 });
+
+
+document.getElementById('colapsarTodoBtn').addEventListener('click', function () {
+    const accordions = document.querySelectorAll('#accordionCargos .accordion-collapse');
+    const buttons = document.querySelectorAll('#accordionCargos .accordion-button');
+
+    accordions.forEach(collapse => collapse.classList.remove('show'));
+    buttons.forEach(btn => {
+        btn.classList.add('collapsed');
+        btn.setAttribute('aria-expanded', 'false');
+    });
+});
+
+document.getElementById('expandirTodoBtn').addEventListener('click', function () {
+    const accordions = document.querySelectorAll('#accordionCargos .accordion-collapse');
+    const buttons = document.querySelectorAll('#accordionCargos .accordion-button');
+
+    accordions.forEach(collapse => collapse.classList.add('show'));
+    buttons.forEach(btn => {
+        btn.classList.remove('collapsed');
+        btn.setAttribute('aria-expanded', 'true');
+    });
+});
+
 
 </script>
 @endpush

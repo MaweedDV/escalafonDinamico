@@ -27,7 +27,7 @@
             <ul class="nav-main">
                 <li class="nav-main-heading">Administrador</li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="/">
+                    <a class="nav-main-link" href="">
                         <i class="nav-main-link-icon fa fa-angles-up"></i>
                         <span class="nav-main-link-name">Ascensos</span>
                     </a>
