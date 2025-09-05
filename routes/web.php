@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\HomeController as FrontEndHomeController;
 use App\Http\Controllers\Backend\HomeController as BackEndHomeController;
 use App\Http\Controllers\Backend\NombresCargosController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Frontend\EscalafonControllerFront;
 use App\Models\NombresCargos;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
@@ -86,12 +87,22 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
 });
 
+
 Route::middleware(['auth', 'role:usuario'])->prefix('usuario')->group(function () {
     Route::get('/inicio', [BackEndHomeController::class, 'index'])->name('inicio');
 
     // Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
+});
+
+Route::group(['prefix' => 'people'], function () {
+        Route::group(['prefix' => 'escalafon'], function () {
+            // SURVEYS FRONTEND
+            Route::get('/', [EscalafonControllerFront::class, 'index'])->name('escalafon.front.index');
+            //Route::post('/', [EscalafonControllerFront::class, 'store'])->name('surveys.front.store');
+        });
+
 });
 
 Route::get('/', [FrontEndHomeController::class, 'index'])->name('papa');

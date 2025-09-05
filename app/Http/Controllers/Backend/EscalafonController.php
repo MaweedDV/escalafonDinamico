@@ -18,7 +18,12 @@ class EscalafonController extends Controller
 
     // Traemos todos los nombres de cargos con sus cargos escalafón ordenados por grado,
     // y a su vez cargamos los funcionarios relacionados a cada cargo
-    $nombresCargos = NombresCargos::with(['cargos_escalafon' => function ($query) {$query->orderBy('grado')->with('funcionarios');}])->orderBy('orden')->get();
+    $nombresCargos = NombresCargos::with(['cargos_escalafon' => function ($query) {
+
+        $query->orderBy('grado')->with('funcionarios');
+
+    }])->orderBy('orden')->get();
+
     // dd($nombresCargos->toArray());
     $profesiones = Profesion::all();
 
