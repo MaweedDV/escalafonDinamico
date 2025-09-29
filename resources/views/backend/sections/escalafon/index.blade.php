@@ -60,8 +60,9 @@
                                 aria-expanded="true"
                                 aria-controls="{{ $accordionId }}">
                             {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
-                            ({{ $funcionarios->count() }} Funcionarios) - Total Cargos: {{ $totalCargosPorGrado }}
+
                         </button>
+
                     </h2>
                     <div id="{{ $accordionId }}"
                         class="accordion-collapse collapse show"
@@ -71,18 +72,18 @@
                         <table class="table table-bordered table-vcenter">
                             <thead>
                                 <tr>
-                                    <th class="text-center" style="width: 50px;">Lugar</th>
-                                    <th class="text-center" style="width: 200px">Nombre</th>
-                                    <th class="text-center" style="width: 150px">Rut</th>
-                                    <th>Grado</th>
-                                    <th>Calif.</th>
-                                    <th>Lista</th>
-                                    <th class="text-center">Antig. Cargo</th>
-                                    <th class="text-center">Antig. Grado</th>
-                                    <th>Antig. Mismo Municipio</th>
-                                    <th>Antig. Mismo Municipio Detalle</th>
-                                    <th>Antig. Estado</th>
-                                    <th>Educación Formal</th>
+                                    <th class="text-center" style="width: 50px; background-color: #eef4ff;">Lugar</th>
+                                    <th class="text-center" style="width: 200px; background-color: #eef4ff;">Nombre</th>
+                                    <th class="text-center" style="width: 150px; background-color: #eef4ff;">Rut</th>
+                                    <th style="background-color: #eef4ff;">Grado</th>
+                                    <th style="background-color: #eef4ff;">Calif.</th>
+                                    <th style="background-color: #eef4ff;">Lista</th>
+                                    <th class="text-center" style="background-color: #eef4ff;">Antig. Cargo</th>
+                                    <th class="text-center" style="background-color: #eef4ff;">Antig. Grado</th>
+                                    <th style="background-color: #eef4ff;">Antig. Mismo Municipio</th>
+                                    <th style="background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th>
+                                    <th style="background-color: #eef4ff;">Antig. Estado</th>
+                                    <th style="background-color: #eef4ff;">Educación Formal</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,7 +117,9 @@
                                 @endfor
                             </tbody>
                         </table>
-
+                          <label style="text-align: right; margin-left: auto; font-weight: normal; font-size: 1em;">
+                                ({{ $funcionarios->count() }} Funcionarios) - Total Cargos: {{ $totalCargosPorGrado }}
+                            </label>
                     </div>
                 </div>
             </div>
