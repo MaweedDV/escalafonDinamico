@@ -25,6 +25,27 @@
      <!-- jQuery primero -->
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+     <style>
+        /* Color fijo en el botón del accordion */
+        .accordion-button {
+            background-color: #eef4ff !important; /* Color fijo */
+            color: #000 !important; /* Texto negro */
+        }
+
+        /* Evitar que cambie al abrir/cerrar */
+        .accordion-button:not(.collapsed) {
+            background-color: #eef4ff !important;
+            color: #000 !important;
+            box-shadow: none !important;
+        }
+
+        /* Quitar el hover gris default de Bootstrap */
+        .accordion-button:hover {
+            background-color: #eef4ff !important;
+            color: #000 !important;
+        }
+    </style>
+
 
     @yield('css')
     @vite(['resources/sass/main.scss', 'resources/sass/dashmix/themes/_base.scss', 'resources/js/dashmix/app.js'])

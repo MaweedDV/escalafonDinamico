@@ -131,11 +131,33 @@
     </div>
 </div>
 
+{{-- 🎨 ESTILOS personalizados para el accordion --}}
+@push('styles')
+<style>
+    /* Color fijo en el botón del accordion */
+    .accordion-button {
+        background-color: #eef4ff !important; /* Color fijo */
+        color: #000 !important; /* Texto negro */
+    }
 
+    /* Evitar que cambie al abrir/cerrar */
+    .accordion-button:not(.collapsed) {
+        background-color: #eef4ff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+    }
 
+    /* Quitar el hover gris default de Bootstrap */
+    .accordion-button:hover {
+        background-color: #eef4ff !important;
+        color: #000 !important;
+    }
+</style>
+@endpush
 
 @push('scripts')
 <script>
+
     document.getElementById('buscador-funcionarios').addEventListener('input', function () {
     const valor = this.value.toLowerCase().trim();
 
