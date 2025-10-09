@@ -49,7 +49,7 @@ class FuncionariosDataTable extends DataTable
                 <form action="{{ route(\'funcionarios.destroy\', $id) }}" method="POST" style="display: inline-block;">
                     @csrf
                     @method(\'DELETE\')
-                    <button type="submit" class="btn btn-sm btn-alt-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                    <button type="submit" class="btn btn-sm btn-alt-danger" title="Desactivar"><i class="fa fa-user-slash"></i></button>
                 </form>
                 <script type="module">
                 $(document).ready(function() {

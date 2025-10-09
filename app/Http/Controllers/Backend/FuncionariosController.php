@@ -114,20 +114,45 @@ class FuncionariosController extends Controller
     {
 
          $funcionario = Funcionarios::find($id);
+         $cargo = CargosEscalafon::find($funcionario->id_Cargo);
 
-            $funcionario->update([
-                'rut' => $request->rut,
-                'nombre' => $request->nombre,
-                'apellido_paterno' => $request->apellidoPaterno,
-                'apellido_materno' => $request->apellidoMaterno,
-                'antiguedad_cargo' => $request->ant_cargo,
-                'antiguedad_grado' => $request->ant_grado,
-                'antiguedad_mismo_municipio' => $request->ant_mism_mun,
-                'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
-                'antiguedad_administracion_estado' => $request->ant_administracion_estado,
-                'educacion_formal' => $request->educacionFormal,
-                'estado' => $request->Estado,
-            ]);
+            if ($request->Estado == 'desactivado' || $request->Estado == 'retirado' || $request->Estado == 'fallecido') {
+                $funcionario->update([
+                    'rut' => $request->rut,
+                    'nombre' => $request->nombre,
+                    'apellido_paterno' => $request->apellidoPaterno,
+                    'apellido_materno' => $request->apellidoMaterno,
+                    'id_Cargo' => 0,
+                    'antiguedad_cargo' => $request->ant_cargo,
+                    'antiguedad_grado' => $request->ant_grado,
+                    'antiguedad_mismo_municipio' => $request->ant_mism_mun,
+                    'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
+                    'antiguedad_administracion_estado' => $request->ant_administracion_estado,
+                    'educacion_formal' => $request->educacionFormal,
+                    'estado' => $request->Estado,
+                ]);
+                $cargo->update([
+                    'asignado' => 0,
+                ]);
+
+            }else {
+                $funcionario->update([
+                    'rut' => $request->rut,
+                    'nombre' => $request->nombre,
+                    'apellido_paterno' => $request->apellidoPaterno,
+                    'apellido_materno' => $request->apellidoMaterno,
+                    'id_Cargo' => $request->cargoEscalafon,
+                    'antiguedad_cargo' => $request->ant_cargo,
+                    'antiguedad_grado' => $request->ant_grado,
+                    'antiguedad_mismo_municipio' => $request->ant_mism_mun,
+                    'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
+                    'antiguedad_administracion_estado' => $request->ant_administracion_estado,
+                    'educacion_formal' => $request->educacionFormal,
+                    'estado' => $request->Estado,
+                ]);
+            }
+
+
 
 
             if ($funcionario instanceof Model) {

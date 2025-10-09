@@ -7,6 +7,8 @@ use App\Models\CargosEscalafon;
 use App\Models\NombresCargos;
 use App\Models\Profesion;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 
 class EscalafonController extends Controller
 {
@@ -56,6 +58,24 @@ class EscalafonController extends Controller
 
         return response()->json(['status' => 'ok']);
         return view('backend.sections.escalafon.escalafon')->with('success', 'Orden guardada exitosamente!');
+    }
+
+    public function escalafonPDF()
+    {
+        $nombresCargos = NombresCargos::with(['cargos_escalafon' => function ($query) {
+
+            $query->orderBy('grado')->with('funcionarios');
+
+        }])->orderBy('orden')->get();
+
+        $profesiones = Profesion::all();
+
+
+
+        $pdf = PDF::loadView('backend.sections.escalafon.reportPDF', compact('nombresCargos'));
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+        return $pdf->stream('escalafon.pdf');
     }
 
     /**

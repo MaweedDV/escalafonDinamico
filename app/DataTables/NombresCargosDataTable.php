@@ -23,8 +23,21 @@ class NombresCargosDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->setRowId('id')
             ->addColumn('action', 'nombrescargos.action')
-            ->setRowId('id');
+            ->addColumn('action', '<div>
+                            <a href="{{ route(\'nombresCargos.edit\', $id )}}" class="btn btn-sm btn-alt-primary" title="Editar">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <form action="{{ route(\'users.destroy\', $id) }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method("DELETE")
+                                <button type="submit" class="btn btn-sm btn-alt-danger" title="Eliminar">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    ');
     }
 
     /**
@@ -46,7 +59,7 @@ class NombresCargosDataTable extends DataTable
                     ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->orderBy(1)
-                    ->selectStyleSingle()
+                    //->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
                         Button::make('csv'),
@@ -65,8 +78,13 @@ class NombresCargosDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('nombre_cargo'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(500)
+                  ->addClass('text-center'),
+            // Column::make('created_at'),
+            // Column::make('updated_at'),
             // Column::computed('action')
             // ->exportable(false)
             // ->printable(false)

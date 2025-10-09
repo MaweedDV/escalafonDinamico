@@ -56,7 +56,9 @@ class NombresCargosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $nombreCargo = NombresCargos::find($id);
+
+        return view('backend.sections.users.edit', compact ('user','check', 'calidadJuridica', 'calidadSeleccionada'));
     }
 
     /**

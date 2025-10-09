@@ -24,6 +24,11 @@
             <label style="margin-top: 20px;" for="buscador-funcionarios" class="form-label">Buscar Funcionarios:</label>
             <input  type="text" id="buscador-funcionarios" class="form-control" placeholder="Buscar por nombre o RUT...">
     </div>
+    <div class="mb-3">
+        <a href="{{ route('escalafonPDF.report') }}" target="_blank"  class="btn btn-hero btn-info me-1 mb-3"><i class="fa fa-fw fa-file-pdf me-2"></i>
+            Descargar PDF
+        </a>
+    </div>
     <div class="mb-3 d-flex justify-content-end">
         <button id="expandirTodoBtn" class="btn btn-sm btn-success" style="display: flex; margin-right: 10px;">Expandir todo</button>
          <button id="colapsarTodoBtn" class="btn btn-sm btn-danger">Colapsar todo</button>
@@ -47,6 +52,8 @@
                                     ['antiguedad_cargo', 'asc'],
                                     ['antiguedad_grado', 'asc'],
                                     ['antiguedad_mismo_municipio', 'asc'],
+                                    ['fecha_decreto', 'asc'],
+                                    ['decreto', 'asc'],
                                 ]);
                                 $totalCargosPorGrado = $cargos->count();
                                 $accordionId = 'collapse-' . $nombreCargo->id . '-' . $grado;
@@ -67,23 +74,23 @@
                     <div id="{{ $accordionId }}"
                         class="accordion-collapse collapse show"
                         aria-labelledby="heading-{{ $accordionId }}">
-                        <div class="accordion-body">
+                        <div class="accordion-body overflow-auto">
 
                         <table class="table table-bordered table-vcenter">
                             <thead>
                                 <tr>
                                     <th class="text-center" style="width: 50px; background-color: #eef4ff;">Lugar</th>
-                                    <th class="text-center" style="width: 200px; background-color: #eef4ff;">Nombre</th>
+                                    <th class="text-center" style="width: 250px; background-color: #eef4ff;">Nombre</th>
                                     <th class="text-center" style="width: 150px; background-color: #eef4ff;">Rut</th>
-                                    <th style="background-color: #eef4ff;">Grado</th>
-                                    <th style="background-color: #eef4ff;">Calif.</th>
-                                    <th style="background-color: #eef4ff;">Lista</th>
-                                    <th class="text-center" style="background-color: #eef4ff;">Antig. Cargo</th>
-                                    <th class="text-center" style="background-color: #eef4ff;">Antig. Grado</th>
-                                    <th style="background-color: #eef4ff;">Antig. Mismo Municipio</th>
-                                    <th style="background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th>
-                                    <th style="background-color: #eef4ff;">Antig. Estado</th>
-                                    <th style="background-color: #eef4ff;">Educación Formal</th>
+                                    <th class="text-center" style="width: 50px; background-color: #eef4ff;">Grado</th>
+                                    <th class="text-center" style="width: 50px; background-color: #eef4ff;">Calif.</th>
+                                    <th class="text-center" style="width: 50px; background-color: #eef4ff;">Lista</th>
+                                    <th class="text-center" style="width: 150px; background-color: #eef4ff;">Antig. Cargo</th>
+                                    <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Grado</th>
+                                    <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Mismo Municipio</th>
+                                    <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Mismo Municipio Detalle</th>
+                                    <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Estado</th>
+                                    <th class="text-center" style="width: 150px; background-color: #eef4ff;">Educación Formal</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,7 +100,7 @@
                                         $profesion = App\Models\Profesion::find($funcionario->educacion_formal);
                                     @endphp
                                     <tr>
-                                        <td class="text-center">{{ ++$indexfunc }}</td>
+                                        <td class="text-center" style="height: 80px">{{ ++$indexfunc }}</td>
                                         <td>{{ $funcionario->apellido_paterno . ' ' . $funcionario->apellido_materno . ' ' . $funcionario->nombre }}</td>
                                         <td class="text-center">{{ $funcionario->rut }}</td>
                                         <td class="text-center">{{ $grado }}</td>
@@ -110,9 +117,9 @@
 
                                 {{-- Vacantes --}}
                                 @for ($v = $indexfunc + 1; $v <= $totalCargosPorGrado; $v++)
-                                    <tr>
-                                        <td class="text-center">{{ $v }}</td>
-                                        <td colspan="11">VACANTE</td>
+                                    <tr class="table-warning">
+                                        <td class="text-center" style="height: 80px;">{{ $v }}</td>
+                                        <td class="text-center" colspan="11" >VACANTE</td>
                                     </tr>
                                 @endfor
                             </tbody>

@@ -37,4 +37,25 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+        $(document).on("click", ".btn-alt-danger", function(e) {
+            e.preventDefault();
+            let $button = $(this);
+
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "Una vez eliminado, no podrás recuperar este registro!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#6f9c40",
+                cancelButtonColor: "#e04f1a",
+                confirmButtonText: "Sí, eliminarlo",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $button.closest("form").submit();
+                }
+            });
+        });
+
 @endpush

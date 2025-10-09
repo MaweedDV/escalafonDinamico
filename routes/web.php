@@ -25,6 +25,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
         Route::get('/', [EscalafonController::class, 'index'])->name('escalafon.index');
         Route::get('/ordenar', [EscalafonController::class, 'ordenarEscalafon'])->name('escalafon.ordenar');
         Route::post('/orden', [EscalafonController::class, 'guardarOrden']);
+        Route::get('/pdf', [EscalafonController::class, 'escalafonPDF'])->name('escalafonPDF.report');
     });
 
 
@@ -43,7 +44,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::group(['prefix' => 'NombresCargos'], function () {
         Route::get('/', [NombresCargosController::class, 'index'])->name('nombresCargos.index');
         Route::post('/', [NombresCargosController::class, 'store'])->name('nombresCargos.store');
-        // Route::get('/edit/{id}', [NombresCargosController::class, 'edit'])->name('nombresCargos.edit');
+        Route::get('/edit/{id}', [NombresCargosController::class, 'edit'])->name('nombresCargos.edit');
         // Route::delete('/{id}', [NombresCargosController::class, 'destroy'])->name('nombresCargos.destroy');
         // Route::get('/{id}', [NombresCargosController::class, 'show'])->name('nombresCargos.show');
         // Route::put('/{id}', [NombresCargosController::class, 'update'])->name('nombresCargos.update');
@@ -54,7 +55,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::group(['prefix' => 'cargosEscalafon'], function () {
         Route::get('/', [CargosEscalafon::class, 'index'])->name('cargosEscalafon.index');
         Route::post('/', [CargosEscalafon::class, 'store'])->name('cargosEscalafon.store');
-        // Route::get('/edit/{id}', [CargosEscalafon::class, 'edit'])->name('cargosEscalafon.edit');
+        //Route::get('/edit/{id}', [CargosEscalafon::class, 'edit'])->name('cargosEscalafon.edit');
         // Route::delete('/{id}', [CargosEscalafon::class, 'destroy'])->name('cargosEscalafon.destroy');
         // Route::get('/{id}', [CargosEscalafon::class, 'show'])->name('cargosEscalafon.show');
         // Route::put('/{id}', [CargosEscalafon::class, 'update'])->name('cargosEscalafon.update');

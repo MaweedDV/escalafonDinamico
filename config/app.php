@@ -212,6 +212,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
     ])->toArray(),
 
 ];
