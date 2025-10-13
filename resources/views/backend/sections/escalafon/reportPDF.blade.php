@@ -143,8 +143,8 @@
                                 <th style="background-color: #eef4ff;">Lista</th>
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Cargo</th>
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Grado</th>
-                                <th style="background-color: #eef4ff;">Antig. Mismo Municipio</th>
-                                <th style="background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th>
+                                <th style="width: 70px; background-color: #eef4ff;">Antig. Mismo Municipio</th>
+                                <th style="width: 70px; background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th>
                                 <th style="background-color: #eef4ff;">Antig. Estado</th>
                                 <th style="background-color: #eef4ff;">Educación Formal</th>
                             </tr>
@@ -163,6 +163,11 @@
                                             $COLOR = '#2a68f7'; break;
                                     }
                                 @endphp
+                                @php
+                                    $antiguedad_cargo = strtotime($funcionario->antiguedad_cargo);
+                                    $antiguedad_grado = strtotime($funcionario->antiguedad_grado);
+                                    $antiguedad_mismo_municipio = strtotime($funcionario->antiguedad_mismo_municipio);
+                                @endphp
                                 <tr>
                                     <td style="background-color: {{$COLOR}}">{{ ++$indexfunc }}</td>
                                     <td style="height: 50px">{{ $funcionario->apellido_paterno . ' ' . $funcionario->apellido_materno . ' ' . $funcionario->nombre }}</td>
@@ -170,9 +175,9 @@
                                     <td>{{ $grado }}</td>
                                     <td>{{ $funcionario->calificacion ?? '-' }}</td>
                                     <td>{{ $funcionario->lista ?? '-' }}</td>
-                                    <td>{{ $funcionario->antiguedad_cargo ?? '-' }}</td>
-                                    <td>{{ $funcionario->antiguedad_grado ?? '-' }}</td>
-                                    <td>{{ $funcionario->antiguedad_mismo_municipio ?? '-' }}</td>
+                                    <td class="text-center">{{ date("d-m-Y", $antiguedad_cargo) ?? '-' }}</td>
+                                    <td class="text-center">{{ date("d-m-Y", $antiguedad_grado) ?? '-' }}</td>
+                                    <td class="text-center">{{ date("d-m-Y", $antiguedad_mismo_municipio) ?? '-' }}</td>
                                     <td>{{ $funcionario->antiguedad_mismo_municipio_detalle ?? '-' }}</td>
                                     <td>{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
                                     <td>{{ $profesion->profesion ?? '-' }}</td>

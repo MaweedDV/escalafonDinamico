@@ -100,15 +100,20 @@
                                         $profesion = App\Models\Profesion::find($funcionario->educacion_formal);
                                     @endphp
                                     <tr>
+                                        @php
+                                        $antiguedad_cargo = strtotime($funcionario->antiguedad_cargo);
+                                        $antiguedad_grado = strtotime($funcionario->antiguedad_grado);
+                                        $antiguedad_mismo_municipio = strtotime($funcionario->antiguedad_mismo_municipio);
+                                        @endphp
                                         <td class="text-center" style="height: 80px">{{ ++$indexfunc }}</td>
                                         <td>{{ $funcionario->apellido_paterno . ' ' . $funcionario->apellido_materno . ' ' . $funcionario->nombre }}</td>
                                         <td class="text-center">{{ $funcionario->rut }}</td>
                                         <td class="text-center">{{ $grado }}</td>
                                         <td class="text-center">{{ $funcionario->calificacion ?? '-' }}</td>
                                         <td class="text-center">{{ $funcionario->lista ?? '-' }}</td>
-                                        <td class="text-center">{{ $funcionario->antiguedad_cargo ?? '-' }}</td>
-                                        <td class="text-center">{{ $funcionario->antiguedad_grado ?? '-' }}</td>
-                                        <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio ?? '-' }}</td>
+                                        <td class="text-center">{{ date("d-m-Y", $antiguedad_cargo) ?? '-' }}</td>
+                                        <td class="text-center">{{ date("d-m-Y", $antiguedad_grado) ?? '-' }}</td>
+                                        <td class="text-center">{{ date("d-m-Y", $antiguedad_mismo_municipio) ?? '-' }}</td>
                                         <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio_detalle ?? '-' }}</td>
                                         <td class="text-center">{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
                                         <td class="text-center">{{ $profesion->profesion ?? '-' }}</td>
