@@ -72,9 +72,26 @@ class EscalafonController extends Controller
 
 
 
-        $pdf = PDF::loadView('backend.sections.escalafon.reportPDF', compact('nombresCargos'));
-        $pdf->setPaper('A4', 'landscape');
+       $pdf = Pdf::loadView('backend.sections.escalafon.reportPDF', compact('nombresCargos'))
+          ->setPaper('A4', 'landscape');
+
+        // Renderiza primero
         $pdf->render();
+
+        // Luego agrega la numeración de página
+        $pdf->getDomPDF()->get_canvas()->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
+            $text = "pág. $pageNumber";
+            $font = $fontMetrics->getFont("Helvetica", "normal");
+            $size = 9;
+            $width = $fontMetrics->getTextWidth($text, $font, $size);
+
+            // alineación derecha
+            $x = $canvas->get_width() - $width - 100; // margen derecho
+            $y = $canvas->get_height() - 50; // margen inferior
+            $canvas->text($x, $y, $text, $font, $size);
+        });
+
+        // Finalmente envía el PDF
         return $pdf->stream('escalafon.pdf');
     }
 

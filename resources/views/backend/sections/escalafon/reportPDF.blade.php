@@ -82,6 +82,16 @@
             margin: 0;
             padding: 4px 0;
         }
+
+        /* Estilo para título dentro del encabezado */
+        thead tr:first-child th {
+            background-color: #dbe5ff !important;
+            font-weight: bold;
+            text-align: left;
+            font-size: 14px;
+            padding: 6px;
+            border-bottom: 2px solid #000;
+        }
     </style>
 </head>
 <body>
@@ -96,19 +106,19 @@
         <img src="{{ public_path('media/reportPDF/piepagina.png') }}" style="width: 100%; display: block;" alt="Pie de página">
     </footer>
 
-   <!-- Primera página con texto -->
+   <!-- Contenido principal -->
 <div class="content">
-   <!-- Título centrado y la imagen al costado derecho -->
+   <!-- Título general centrado -->
 <div style="position: relative; text-align: center; margin-bottom: 10px;">
     <h1 style="margin: 0;">ESCALAFÓN DE MÉRITO {{date('Y')}}</h1>
     <img src="{{ public_path('media/escalafon/leyendaCargos.png')}}"
          style="position: absolute; right: 0; top: 50%; transform: translateY(-300%); width: 20%; height: 20%;">
 </div>
+
 <label style="text-align: left; display: block; font-weight: normal; font-size: 1em; margin-top: 5px;">
-    Vigente: {{ date('01-01-Y') }} <BR>
+    Vigente: {{ date('01-01-Y') }} <br>
     Periodo Calificatorio: 01-09-2023 a 31-08-2024
 </label>
-
 
     @foreach($nombresCargos as $nombreCargo)
         <div class="grupo-cargo">
@@ -129,11 +139,14 @@
                     $totalCargosPorGrado = $cargos->count();
                 @endphp
 
-                <!-- Bloque que evita separación de título y tabla -->
                 <div class="bloque-tabla">
-                    <h3>{{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}</h3>
                     <table class="table table-bordered table-vcenter">
                         <thead>
+                            <tr>
+                                <th colspan="12">
+                                    {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
+                                </th>
+                            </tr>
                             <tr>
                                 <th style="width: 50px; background-color: #eef4ff;">Lugar</th>
                                 <th style="width: 140px; background-color: #eef4ff;">Nombre</th>
@@ -162,8 +175,7 @@
                                         default:
                                             $COLOR = '#2a68f7'; break;
                                     }
-                                @endphp
-                                @php
+
                                     $antiguedad_cargo = strtotime($funcionario->antiguedad_cargo);
                                     $antiguedad_grado = strtotime($funcionario->antiguedad_grado);
                                     $antiguedad_mismo_municipio = strtotime($funcionario->antiguedad_mismo_municipio);
@@ -212,7 +224,6 @@
         </div>
     @endforeach
 </div>
-
 
 </body>
 </html>
