@@ -9,7 +9,7 @@
         body {
             font-family: sans-serif;
             font-size: 12px;
-            margin: 8%;
+            margin: 6%;
             padding: 0;
         }
 
@@ -136,7 +136,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 50px; background-color: #eef4ff;">Lugar</th>
-                                <th style="width: 200px; background-color: #eef4ff;">Nombre</th>
+                                <th style="width: 140px; background-color: #eef4ff;">Nombre</th>
                                 <th style="width: 70px; background-color: #eef4ff;">Rut</th>
                                 <th style="background-color: #eef4ff;">Grado</th>
                                 <th style="background-color: #eef4ff;">Calif.</th>
@@ -144,9 +144,9 @@
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Cargo</th>
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Grado</th>
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Mismo Municipio</th>
-                                <th style="width: 70px; background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th>
-                                <th style="background-color: #eef4ff;">Antig. Estado</th>
-                                <th style="background-color: #eef4ff;">Educación Formal</th>
+                                <th style="width: 70px;background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th>
+                                <th style="width: 70px;background-color: #eef4ff;">Antig. Estado</th>
+                                <th style="width: 180px;background-color: #eef4ff;">Educación Formal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -178,8 +178,8 @@
                                     <td class="text-center">{{ date("d-m-Y", $antiguedad_cargo) ?? '-' }}</td>
                                     <td class="text-center">{{ date("d-m-Y", $antiguedad_grado) ?? '-' }}</td>
                                     <td class="text-center">{{ date("d-m-Y", $antiguedad_mismo_municipio) ?? '-' }}</td>
-                                    <td>{{ $funcionario->antiguedad_mismo_municipio_detalle ?? '-' }}</td>
-                                    <td>{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
+                                    <td>3A-2M-10D</td>
+                                    <td>3A-2M-10D</td>
                                     <td>{{ $profesion->profesion ?? '-' }}</td>
                                 </tr>
                             @endforeach
@@ -188,7 +188,17 @@
                             @for ($v = $indexfunc + 1; $v <= $totalCargosPorGrado; $v++)
                                 <tr>
                                     <td style="height: 50px; background-color: #2a68f7 ">{{ $v }}</td>
-                                    <td colspan="11">VACANTE</td>
+                                    <td>VACANTE</td>
+                                    <td>-</td>
+                                    <td>{{ $grado }}</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
                                 </tr>
                             @endfor
                         </tbody>
