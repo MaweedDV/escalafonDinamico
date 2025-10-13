@@ -93,8 +93,8 @@ Route::middleware(['auth', 'role:usuario'])->prefix('usuario')->group(function (
     Route::get('/inicio', [BackEndHomeController::class, 'index'])->name('inicio');
 
     // Users
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users', [UserController::class, 'index'])->name('users.public.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.public.store');
 });
 
 Route::group(['prefix' => 'people'], function () {
