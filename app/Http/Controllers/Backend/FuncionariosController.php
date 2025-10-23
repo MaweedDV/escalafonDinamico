@@ -46,7 +46,19 @@ class FuncionariosController extends Controller
     public function store(Request $request)
     {
 
+        if (Funcionarios::where('rut', $request->rut)->exists()) {
 
+            return to_route('funcionarios.index')->with('error', 'Porfavor ingrese un RUT válido que no esté registrado en el sistema.');
+
+        }else if ($request->rut == null || $request->nombre == null) {
+
+            return to_route('funcionarios.index')->with('error', 'Hay campos obligatorios que no han sido completados.');
+
+        }else if ($request->cargoEscalafon == null) {
+
+            return to_route('funcionarios.index')->with('error', 'Debe seleccionar un cargo del escalafón disponible.');
+
+        } else {
             $funcionarios = Funcionarios::create([
                 'decreto' => $request->decreto,
                 'fecha_decreto' => $request->fechaDecreto,
@@ -78,7 +90,7 @@ class FuncionariosController extends Controller
 
             }
 
-
+        }
 
     }
 

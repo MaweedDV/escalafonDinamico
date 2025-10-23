@@ -22,7 +22,7 @@
             <br>{{-- espacio de separacion para el boton crear usuario y la parte superior del block --}}
 
             <br>
-                <div class="col-md-12">
+                <div class="col-md-8" style="margin-left: auto; margin-right:auto">
                     {{ $dataTable->table() }}
                 </div>
             </div>

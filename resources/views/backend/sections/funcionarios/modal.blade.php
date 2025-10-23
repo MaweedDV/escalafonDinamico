@@ -44,7 +44,7 @@
                                 <h4>DATOS PERSONALES</h4>
                             </div>
                             <div class="col-6">
-                                <label class="form-label" for="example-ltf-email2">Rut</label>
+                                <label class="form-label" for="example-ltf-email2">Rut</label><label style="color: red">*</label>
                                 <input type="text" class="form-control form-control" id="rut" name="rut"
                                     placeholder="Ingrese su Rut">
                                 @error('rut')
@@ -54,7 +54,7 @@
                                 @enderror
                             </div>
                             <div class="col-6">
-                                <label class="form-label" for="example-ltf-email2">Nombre/s</label>
+                                <label class="form-label" for="example-ltf-email2">Nombre/s</label></label><label style="color: red">*</label>
                                 <input type="text" class="form-control form-control" id="nombre" name="nombre"
                                     placeholder="Ingrese su nombre">
                                 @error('nombre')
@@ -64,7 +64,7 @@
                                 @enderror
                             </div>
                             <div class="col-6">
-                                <label class="form-label" for="example-ltf-email2">Apellido Paterno</label>
+                                <label class="form-label" for="example-ltf-email2">Apellido Paterno</label></label><label style="color: red">*</label>
                                 <input type="text" class="form-control form-control" id="apellidoPaterno" name="apellidoPaterno"
                                     placeholder="Ingrese su Apellido Paterno">
                                 @error('apellidoPaterno')
@@ -74,7 +74,7 @@
                                 @enderror
                             </div>
                             <div class="col-6">
-                                <label class="form-label" for="example-ltf-email2">Apellido Materno</label>
+                                <label class="form-label" for="example-ltf-email2">Apellido Materno</label></label><label style="color: red">*</label>
                                 <input type="text" class="form-control form-control" id="apellidoMaterno" name="apellidoMaterno"
                                     placeholder="Ingrese su Apellido Materno">
                                 @error('apellidoMaterno')
@@ -85,7 +85,7 @@
                             </div>
                             {{-- ID CARGOS --}}
                             <div class="col-6">
-                                <label class="form-label" for="example-select-floating">Cargo Escalafón</label>
+                                <label class="form-label" for="example-select-floating">Cargo Escalafón</label></label><label style="color: red">*</label>
                                 <select class="form-select" id="example-select-floating" name="cargoEscalafon"
                                     aria-label="Floating label select example">
                                     <option selected="" disabled>Seleccione un cargo</option>

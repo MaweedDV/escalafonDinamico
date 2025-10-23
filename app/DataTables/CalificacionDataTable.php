@@ -26,7 +26,7 @@ class CalificacionDataTable extends DataTable
         ->addColumn('calificaciones', function ($row) {
             return '
                 <div class="input-group calificacion-group" data-id="' . $row->id . '">
-                    <input type="text" class="form-control editable-input" data-column="calificacion" value="">
+                    <input type="text" class="form-control editable-input" data-column="calificacion" value="'. $row->calificacion .'">
                     <button class="btn btn-sm btn-success save-btn" title="Guardar" data-column="calificacion">
                          <i class="fa-solid fa-floppy-disk"></i>
                     </button>
@@ -68,7 +68,7 @@ class CalificacionDataTable extends DataTable
                     ->buttons([
                         Button::make('excel'),
                         Button::make('csv'),
-                        Button::make('pdf'),
+                        //Button::make('pdf'),
                         // Button::make('print'),
                         // Button::make('reset'),
                         Button::make('reload')
@@ -95,7 +95,8 @@ class CalificacionDataTable extends DataTable
                 ->title('Calificación')
                 ->orderable(false)
                 ->searchable(false)
-                ->exportable(false),
+                ->exportable(false)
+                ->width(50),
             // Column::computed('action')
             //       ->exportable(false)
             //       ->printable(false)

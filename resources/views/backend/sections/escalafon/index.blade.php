@@ -25,13 +25,20 @@
             <input  type="text" id="buscador-funcionarios" class="form-control" placeholder="Buscar por nombre o RUT...">
     </div>
     <div class="mb-3">
-        <a href="{{ route('escalafonPDF.report') }}" target="_blank"  class="btn btn-hero btn-info me-1 mb-3"><i class="fa fa-fw fa-file-pdf me-2"></i>
-            Descargar PDF
-        </a>
+            <a href="{{ route('escalafonPDF.report') }}" target="_blank"  class="btn btn-hero btn-info me-1 mb-3"><i class="fa fa-fw fa-file-pdf me-2"></i>
+                Previsualizar PDF
+            </a>
+        {{-- <a href="{{ route('escalafon.generar') }}" class="btn btn-hero btn-success me-1 mb-3"><i class="fa fa-fw fa-check-double me-2"></i>
+            Confirmar Escalafón
+        </a> --}}
+            <button type="button" class="btn btn-hero btn-success me-1 mb-3" data-bs-toggle="modal"
+                    data-bs-target="#modal-block-fromleft"><i class="fa fa-fw fa-check-double me-2"></i>
+                    Confirmar Escalafón
+            </button>
     </div>
     <div class="mb-3 d-flex justify-content-end">
-        <button id="expandirTodoBtn" class="btn btn-sm btn-success" style="display: flex; margin-right: 10px;">Expandir todo</button>
-         <button id="colapsarTodoBtn" class="btn btn-sm btn-danger">Colapsar todo</button>
+            <button id="expandirTodoBtn" class="btn btn-sm btn-success" style="display: flex; margin-right: 10px;">Expandir todo</button>
+            <button id="colapsarTodoBtn" class="btn btn-sm btn-danger">Colapsar todo</button>
     </div>
     <div class="accordion" id="accordionCargos">
                     @foreach($nombresCargos as $nombreCargo)
@@ -51,7 +58,7 @@
                                     ['calificacion', 'desc'],
                                     ['antiguedad_cargo', 'asc'],
                                     ['antiguedad_grado', 'asc'],
-                                    ['antiguedad_mismo_municipio', 'asc'],
+                                    ['antiguedad_mismo_municipio', 'asc'], //despues de ingresado detalle sacar esta variable
                                     ['fecha_decreto', 'asc'],
                                     ['decreto', 'asc'],
                                 ]);
@@ -99,6 +106,23 @@
                                     @php
                                         $profesion = App\Models\Profesion::find($funcionario->educacion_formal);
                                     @endphp
+                                    @php
+                                        $anos = 0;
+                                        $meses = 0;
+                                        $dias = 0;
+                                        $tiempoDetalle = $funcionario->antiguedad_mismo_municipio_detalle;
+
+                                        if($tiempoDetalle == null || $tiempoDetalle == 0){
+                                            $anos = 0;
+                                            $meses = 0;
+                                            $dias = 0;
+                                        }else{
+                                            $anos = floor($tiempoDetalle / 365);
+                                            $meses = floor(($tiempoDetalle % 365) / 30);
+                                            $dias = ($tiempoDetalle % 365) % 30;
+                                        }
+
+                                    @endphp
                                     <tr>
                                         @php
                                         $antiguedad_cargo = strtotime($funcionario->antiguedad_cargo);
@@ -114,7 +138,7 @@
                                         <td class="text-center">{{ date("d-m-Y", $antiguedad_cargo) ?? '-' }}</td>
                                         <td class="text-center">{{ date("d-m-Y", $antiguedad_grado) ?? '-' }}</td>
                                         <td class="text-center">{{ date("d-m-Y", $antiguedad_mismo_municipio) ?? '-' }}</td>
-                                        <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio_detalle ?? '-' }}</td>
+                                        <td class="text-center">{{ $anos."A-" .$meses."M-" .$dias."D"  ?? '-' }}</td>
                                         <td class="text-center">{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
                                         <td class="text-center">{{ $profesion->profesion ?? '-' }}</td>
                                     </tr>
@@ -142,6 +166,11 @@
 
     </div>
 </div>
+
+@endsection
+
+
+@include('backend.sections.escalafon.modal')
 
 {{-- 🎨 ESTILOS personalizados para el accordion --}}
 @push('styles')
@@ -273,4 +302,4 @@ document.getElementById('expandirTodoBtn').addEventListener('click', function ()
 @endpush
 
 
-@endsection
+

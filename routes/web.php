@@ -26,6 +26,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
         Route::get('/ordenar', [EscalafonController::class, 'ordenarEscalafon'])->name('escalafon.ordenar');
         Route::post('/orden', [EscalafonController::class, 'guardarOrden']);
         Route::get('/pdf', [EscalafonController::class, 'escalafonPDF'])->name('escalafonPDF.report');
+        Route::post('/generar-escalafon', [EscalafonController::class, 'escalafonConfirmado'])->name('escalafon.generar');
     });
 
 
