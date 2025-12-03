@@ -1,25 +1,49 @@
 @extends('layouts.backendPublic')
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid px-8 my-4">
+     <header>
+        <img src=" {{ asset('images/encabezado.png') }}" style="width: 25%; display: block;" alt="Encabezado">
+    </header>
+    <div class="d-flex justify-content-end">
+        <a href="https://www.google.cl" target="_blank" style="font-size: 50px;">
+            <i class="si si-printer"></i>
+        </a>
+    </div>
 
     <!-- Título -->
     <div class="text-center mb-4">
-        <h2 class="fw-bold">Listado de Funcionarios Municipales</h2>
-        <p class="text-muted">Consulta por cargo, grado o funcionario específico</p>
+        <h1 class="fw-bold">ESCALAFÓN DE MÉRITO 2026</h1>
     </div>
+    <label style="text-align: left; display: block; font-weight: normal; font-size: 1em; margin-top: 5px;">
+    Vigente: 01-01-2026<br>
+    Periodo Calificatorio: 01-09-2024 a 31-08-2025
+    </label>
+    <br>
 
     <!-- Buscador -->
-    <div class="card shadow-sm p-3 mb-3">
-        <label for="buscador-funcionarios" class="form-label fw-semibold">🔎 Buscar Funcionarios</label>
-        <input type="text" id="buscador-funcionarios" class="form-control" placeholder="Ejemplo: Juan Pérez o 12345678-9">
+    <div class="row mb-4">
+        <div class="card shadow-sm p-3 mb-3 col-6">
+            <label for="buscador-funcionarios" class="form-label fw-semibold">🔎 Buscar Funcionarios</label>
+            <input type="text" id="buscador-funcionarios" class="form-control" placeholder="Ejemplo: Juan Pérez o 12345678-9">
+        </div>
+         <!-- Botones -->
+    <div class="card shadow-sm mb-3 p-3 col-6">
+        <br>
+    <div class="row">
+        <div class="col-6">
+            <button id="expandirTodoBtn" class="btn btn-success w-100">Expandir todo</button>
+        </div>
+        <div class="col-6">
+            <button id="colapsarTodoBtn" class="btn btn-danger w-100">Contraer todo</button>
+        </div>
+    </div>
+</div>
+
     </div>
 
-    <!-- Botones -->
-    <div class="d-flex justify-content-end mb-3">
-        <button id="expandirTodoBtn" class="btn btn-success me-2">Expandir todo</button>
-        <button id="colapsarTodoBtn" class="btn btn-danger">Colapsar todo</button>
-    </div>
+
+
 
     <!-- Acordeones -->
     <div class="accordion" id="accordionCargos">
@@ -54,7 +78,7 @@
                                 aria-expanded="false"
                                 aria-controls="{{ $accordionId }}">
                             {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
-                            ({{ $funcionarios->count() }} Funcionarios | Total Cargos: {{ $totalCargosPorGrado }})
+
                         </button>
                     </h2>
                     <div id="{{ $accordionId }}" class="accordion-collapse collapse"
@@ -65,18 +89,18 @@
                                 <table class="table table-bordered table-striped align-middle">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="text-center">#</th>
-                                            <th>Nombre</th>
-                                            <th class="text-center">RUT</th>
-                                            <th class="text-center">Grado</th>
-                                            <th class="text-center">Calif.</th>
-                                            <th class="text-center">Lista</th>
-                                            <th class="text-center">Antig. Cargo</th>
-                                            <th class="text-center">Antig. Grado</th>
-                                            <th class="text-center">Antig. Mismo Municipio</th>
-                                            <th class="text-center">Detalle</th>
-                                            <th class="text-center">Antig. Estado</th>
-                                            <th>Educación Formal</th>
+                                        <th class="text-center" style="width: 50px; background-color: #eef4ff;">Lugar</th>
+                                        <th class="text-center" style="width: 250px; background-color: #eef4ff;">Nombre</th>
+                                        <th class="text-center" style="width: 150px; background-color: #eef4ff;">Rut</th>
+                                        <th class="text-center" style="width: 50px; background-color: #eef4ff;">Grado</th>
+                                        <th class="text-center" style="width: 50px; background-color: #eef4ff;">Calif.</th>
+                                        <th class="text-center" style="width: 50px; background-color: #eef4ff;">Lista</th>
+                                        <th class="text-center" style="width: 150px; background-color: #eef4ff;">Antig. Cargo</th>
+                                        <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Grado</th>
+                                        <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Mismo Municipio</th>
+                                        <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Mismo Municipio Detalle</th>
+                                        <th class="text-center" style="width: 150px; background-color: #eef4ff; ">Antig. Estado</th>
+                                        <th class="text-center" style="width: 150px; background-color: #eef4ff;">Educación Formal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,6 +108,23 @@
                                         @foreach($funcionarios as $funcionario)
                                             @php
                                                 $profesion = App\Models\Profesion::find($funcionario->educacion_formal);
+                                            @endphp
+                                            @php
+                                                $anos = 0;
+                                                $meses = 0;
+                                                $dias = 0;
+                                                $tiempoDetalle = $funcionario->antiguedad_mismo_municipio_detalle;
+
+                                                if($tiempoDetalle == null || $tiempoDetalle == 0){
+                                                    $anos = 0;
+                                                    $meses = 0;
+                                                    $dias = 0;
+                                                }else{
+                                                    $anos = floor($tiempoDetalle / 365);
+                                                    $meses = floor(($tiempoDetalle % 365) / 30);
+                                                    $dias = ($tiempoDetalle % 365) % 30;
+                                                }
+
                                             @endphp
                                             <tr>
                                                 <td class="text-center">{{ ++$indexfunc }}</td>
@@ -95,7 +136,7 @@
                                                 <td class="text-center">{{ $funcionario->antiguedad_cargo ?? '-' }}</td>
                                                 <td class="text-center">{{ $funcionario->antiguedad_grado ?? '-' }}</td>
                                                 <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio ?? '-' }}</td>
-                                                <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio_detalle ?? '-' }}</td>
+                                                <td class="text-center">{{ $anos."A-" .$meses."M-" .$dias."D"  ?? '-' }}</td>
                                                 <td class="text-center">{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
                                                 <td>{{ $profesion->profesion ?? '-' }}</td>
                                             </tr>
@@ -110,6 +151,9 @@
                                         @endfor
                                     </tbody>
                                 </table>
+                                <label style="text-align: right; margin-left: auto; font-weight: normal; font-size: 1em;">
+                                ({{ $funcionarios->count() }} Funcionarios) - Total Cargos: {{ $totalCargosPorGrado }}
+                                </label>
                             </div>
 
                         </div>
