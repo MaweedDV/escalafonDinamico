@@ -139,7 +139,7 @@
 
                                             @endphp
                                             <tr>
-                                                <td class="text-center">{{ ++$indexfunc }}</td>
+                                                <td class="text-center" style="height: 80px;">{{ ++$indexfunc }}</td>
                                                 <td>{{ $funcionario->apellido_paterno }} {{ $funcionario->apellido_materno }} {{ $funcionario->nombre }}</td>
                                                 <td class="text-center">{{ $funcionario->rut }}</td>
                                                 <td class="text-center">{{ $grado }}</td>
