@@ -28,8 +28,7 @@
                     </p>
                   </div>
                   <div class="block-content block-content-full text-end bg-body">
-                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">OK</button>
                   </div>
                 </div>
               </div>
