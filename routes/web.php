@@ -102,6 +102,7 @@ Route::group(['prefix' => 'people'], function () {
         Route::group(['prefix' => 'escalafon'], function () {
             // SURVEYS FRONTEND
             Route::get('/', [EscalafonControllerFront::class, 'index'])->name('escalafon.front.index');
+            Route::get('/pdf', [EscalafonController::class, 'escalafonPDF'])->name('escalafonPDFpublic.report');
             //Route::post('/', [EscalafonControllerFront::class, 'store'])->name('surveys.front.store');
         });
 

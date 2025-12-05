@@ -5,30 +5,41 @@
      <header>
         <img src=" {{ asset('images/encabezado.png') }}" style="width: 25%; display: block;" alt="Encabezado">
     </header>
-    <div class="d-flex justify-content-end">
-        <a href="https://www.google.cl" target="_blank" style="font-size: 50px;">
-            <i class="si si-printer"></i>
-        </a>
-    </div>
-
     <!-- Título -->
     <div class="text-center mb-4">
         <h1 class="fw-bold">ESCALAFÓN DE MÉRITO 2026</h1>
     </div>
-    <label style="text-align: left; display: block; font-weight: normal; font-size: 1em; margin-top: 5px;">
-    Vigente: 01-01-2026<br>
-    Periodo Calificatorio: 01-09-2024 a 31-08-2025
-    </label>
-    <br>
+    <div class="row">
+        <div class="col-6">
+             <label style="text-align: left; display: block; font-weight: normal; font-size: 1em; margin-top: 20px;">
+                    Vigente: 01-01-2026<br>
+                    Periodo Calificatorio: 01-09-2024 a 31-08-2025
+            </label>
+        </div>
+        <div class="col-6">
+        <div class="d-flex justify-content-end gap-3">
+            <div>
+                <a href="{{ route('escalafonPDFpublic.report') }}" target="_blank" style="font-size: 50px;">
+                    <i class="si si-printer"></i>
+                </a>
+        </div>
+         <div>
+            <a href="https://www.google.cl" target="_blank" style="font-size: 50px;">
+                <i class="si si-info"></i>
+            </a>
+        </div>
+    </div>
+</div>
+    </div>
 
     <!-- Buscador -->
     <div class="row mb-4">
-        <div class="card shadow-sm p-3 mb-3 col-6">
+        <div class="card shadow-sm p-3 mb-2 col-6">
             <label for="buscador-funcionarios" class="form-label fw-semibold">🔎 Buscar Funcionarios</label>
             <input type="text" id="buscador-funcionarios" class="form-control" placeholder="Ejemplo: Juan Pérez o 12345678-9">
         </div>
          <!-- Botones -->
-    <div class="card shadow-sm mb-3 p-3 col-6">
+    <div class="card shadow-sm mb-2 p-3 col-6">
         <br>
     <div class="row">
         <div class="col-6">
@@ -51,7 +62,7 @@
         <div class="grupo-cargo mb-4">
             <h4 class="text-center text-primary my-3 border-bottom pb-2">
                 {{ $nombreCargo->nombre_cargo }}
-                <small class="text-muted">(Total: {{ $nombreCargo->cargos_escalafon->count() }})</small>
+                <small class="text-muted"></small>
             </h4>
 
             @php
