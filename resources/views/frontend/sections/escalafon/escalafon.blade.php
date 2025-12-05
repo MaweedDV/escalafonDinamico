@@ -17,6 +17,7 @@
             </label>
         </div>
         <div class="col-6">
+
         <div class="d-flex justify-content-end gap-3">
             <div>
                 <a href="{{ route('escalafonPDFpublic.report') }}" target="_blank" style="font-size: 50px;">
@@ -24,7 +25,7 @@
                 </a>
         </div>
          <div>
-            <a href="https://www.google.cl" target="_blank" style="font-size: 50px;">
+            <a data-bs-toggle="modal" data-bs-target="#modal-block-fromright" href="" style="font-size: 50px;">
                 <i class="si si-info"></i>
             </a>
         </div>
@@ -176,6 +177,8 @@
     </div>
 </div>
 @endsection
+
+@include('frontend.sections.escalafon.modal')
 
 @push('scripts')
 <script>
