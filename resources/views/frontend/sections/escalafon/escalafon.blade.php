@@ -182,6 +182,18 @@
 
 @push('scripts')
 <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const accordions = document.querySelectorAll('#accordionCargos .accordion-collapse');
+        const buttons = document.querySelectorAll('#accordionCargos .accordion-button');
+
+        accordions.forEach(collapse => collapse.classList.add('show'));
+        buttons.forEach(btn => {
+            btn.classList.remove('collapsed');
+            btn.setAttribute('aria-expanded', 'true');
+        });
+    });
+
     document.getElementById('buscador-funcionarios').addEventListener('input', function () {
         const valor = this.value.toLowerCase().trim();
 
