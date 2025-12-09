@@ -157,14 +157,24 @@
                                         {{-- Vacantes --}}
                                         @for ($v = $indexfunc + 1; $v <= $totalCargosPorGrado; $v++)
                                             <tr class="table-warning">
-                                                <td class="text-center">{{ $v }}</td>
-                                                <td colspan="11">VACANTE</td>
+                                               <td class="text-center">{{ $v }}</td>
+                                                <td class="text-center">VACANTE</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">{{ $grado }}</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
                                             </tr>
                                         @endfor
                                     </tbody>
                                 </table>
                                 <label style="text-align: right; margin-left: auto; font-weight: normal; font-size: 1em;">
-                                ({{ $funcionarios->count() }} Funcionarios) - Total Cargos: {{ $totalCargosPorGrado }}
+                                Total Cargos: {{ $totalCargosPorGrado }} - Provistos: ({{ $funcionarios->count() }}) - No Provistos: ({{ $totalCargosPorGrado - $funcionarios->count() }})
                                 </label>
                             </div>
 
