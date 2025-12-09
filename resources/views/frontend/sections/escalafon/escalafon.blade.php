@@ -174,7 +174,7 @@
                                     </tbody>
                                 </table>
                                 <label style="text-align: right; margin-left: auto; font-weight: normal; font-size: 1em;">
-                                Total Cargos: {{ $totalCargosPorGrado }} - Provistos: ({{ $funcionarios->count() }}) - No Provistos: ({{ $totalCargosPorGrado - $funcionarios->count() }})
+                                Total Cargos: {{ $totalCargosPorGrado }} - Provistos: {{ $funcionarios->count() }} - No Provistos: {{ $totalCargosPorGrado - $funcionarios->count() }}
                                 </label>
                             </div>
 
