@@ -116,6 +116,7 @@ class FuncionariosController extends Controller
         $nombresCargos = NombresCargos::find($cargos->Id_nombresCargos);
 
 
+
         return view('backend.sections.funcionarios.edit', compact('nombresCargos', 'cargos', 'funcionario', 'calidadJuridica', 'cargosEscalafon', 'educacionFormal'));
     }
 
@@ -125,10 +126,17 @@ class FuncionariosController extends Controller
     public function update(Request $request, string $id)
     {
 
+
+
          $funcionario = Funcionarios::find($id);
          $cargo = CargosEscalafon::find($funcionario->id_Cargo);
 
-            if ($request->Estado == 'desactivado' || $request->Estado == 'retirado' || $request->Estado == 'fallecido') {
+
+
+            if (in_array($request->Estado, ['desactivado','retirado','fallecido'])) {
+
+
+
                 $funcionario->update([
                     'rut' => $request->rut,
                     'nombre' => $request->nombre,
@@ -143,17 +151,20 @@ class FuncionariosController extends Controller
                     'educacion_formal' => $request->educacionFormal,
                     'estado' => $request->Estado,
                 ]);
-                $cargo->update([
-                    'asignado' => 0,
-                ]);
+                if ($cargo) {
+                    $cargo->update([
+                        'asignado' => 0,
+                    ]);
+                }
 
-            }else {
+            }else if($request->Estado === 'vigente'){
+
                 $funcionario->update([
                     'rut' => $request->rut,
                     'nombre' => $request->nombre,
                     'apellido_paterno' => $request->apellidoPaterno,
                     'apellido_materno' => $request->apellidoMaterno,
-                    'id_Cargo' => $request->cargoEscalafon,
+                    'id_Cargo' => $cargo->id,
                     'antiguedad_cargo' => $request->ant_cargo,
                     'antiguedad_grado' => $request->ant_grado,
                     'antiguedad_mismo_municipio' => $request->ant_mism_mun,
