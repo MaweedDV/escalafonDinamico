@@ -76,7 +76,9 @@
                         ['calificacion', 'desc'],
                         ['antiguedad_cargo', 'asc'],
                         ['antiguedad_grado', 'asc'],
-                        ['antiguedad_mismo_municipio', 'asc'],
+                        ['antiguedad_mismo_municipio', 'asc'], //despues de ingresado detalle sacar esta variable
+                        ['fecha_decreto', 'asc'],
+                        ['decreto', 'asc'],
                     ]);
                     $totalCargosPorGrado = $cargos->count();
                     $accordionId = 'collapse-' . $nombreCargo->id . '-' . $grado;
