@@ -76,6 +76,13 @@
                         <span class="nav-main-link-name">Cargos Escalafón (Nombre cargo y Grado)</span>
                     </a>
                 </li>
+                 <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{route('profesiones.index')}}">
+                        <i class="nav-main-link-icon fa fa-graduation-cap"></i>
+                        <span class="nav-main-link-name">Profesiones</span>
+                    </a>
+                </li>
+
 
             </ul>
         </div>

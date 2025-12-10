@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController as FrontEndHomeController;
 use App\Http\Controllers\Backend\HomeController as BackEndHomeController;
 use App\Http\Controllers\Backend\NombresCargosController;
+use App\Http\Controllers\Backend\ProfesionesController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Frontend\EscalafonControllerFront;
 use App\Models\NombresCargos;
@@ -46,6 +47,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
         Route::get('/', [NombresCargosController::class, 'index'])->name('nombresCargos.index');
         Route::post('/', [NombresCargosController::class, 'store'])->name('nombresCargos.store');
         Route::get('/edit/{id}', [NombresCargosController::class, 'edit'])->name('nombresCargos.edit');
+        // Route::delete('/{id}', [NombresCargosController::class, 'destroy'])->name('nombresCargos.destroy');
+        // Route::get('/{id}', [NombresCargosController::class, 'show'])->name('nombresCargos.show');
+        // Route::put('/{id}', [NombresCargosController::class, 'update'])->name('nombresCargos.update');
+    });
+
+    //PROFESIONES
+    Route::group(['prefix' => 'Profesiones'], function () {
+        Route::get('/', [ProfesionesController::class, 'index'])->name('profesiones.index');
+        Route::post('/', [ProfesionesController::class, 'store'])->name('profesiones.store');
+        //Route::get('/edit/{id}', [NombresCargosController::class, 'edit'])->name('nombresCargos.edit');
         // Route::delete('/{id}', [NombresCargosController::class, 'destroy'])->name('nombresCargos.destroy');
         // Route::get('/{id}', [NombresCargosController::class, 'show'])->name('nombresCargos.show');
         // Route::put('/{id}', [NombresCargosController::class, 'update'])->name('nombresCargos.update');
