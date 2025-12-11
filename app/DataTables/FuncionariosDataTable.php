@@ -88,9 +88,9 @@ class FuncionariosDataTable extends DataTable
         return $model->with(['CargosEscalafone'])->newQuery()
             ->join('cargos_escalafons', 'funcionarios.id_Cargo', '=', 'cargos_escalafons.id')
             ->join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
-            ->join('profesions', 'funcionarios.educacion_formal', '=', 'profesions.id')
+           // ->join('profesions', 'funcionarios.educacion_formal', '=', 'profesions.id')
             //->select('funcionarios.*','cargos_escalafons.grado','nombres_cargos.nombre_cargo');
-            ->select('funcionarios.*','cargos_escalafons.grado as cargo_grado', 'nombres_cargos.nombre_cargo as nombreCargo', 'profesions.profesion as profesion' )
+            ->select('funcionarios.*','cargos_escalafons.grado as cargo_grado', 'nombres_cargos.nombre_cargo as nombreCargo' )
             ;
 
     }
@@ -179,7 +179,7 @@ class FuncionariosDataTable extends DataTable
             Column::make('antiguedad_mismo_municipio'),
             Column::make('antiguedad_mismo_municipio_detalle'),
             Column::make('antiguedad_administracion_estado'),
-            Column::make('profesion')->name('profesions.profesion')->title('Educacion Formal'),
+           // Column::make('profesion')->name('profesions.profesion')->title('Educacion Formal'),
             Column::make('estado'),
             Column::make('created_at'),
             Column::make('updated_at'),
