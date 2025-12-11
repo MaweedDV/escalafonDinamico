@@ -36,26 +36,35 @@
 @include('backend.sections.nombresCargos.modal')
 
 @push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    {!! $dataTable->scripts() !!}
 
-        $(document).on("click", ".btn-alt-danger", function(e) {
-            e.preventDefault();
-            let $button = $(this);
+   <script>
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest(".btn-alt-danger");
 
-            Swal.fire({
-                title: "¿Estás seguro?",
-                text: "Una vez eliminado, no podrás recuperar este registro!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#6f9c40",
-                cancelButtonColor: "#e04f1a",
-                confirmButtonText: "Sí, eliminarlo",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $button.closest("form").submit();
-                }
-            });
+            if (btn) {
+                e.preventDefault();
+
+                const form = btn.closest("form");
+
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "Una vez eliminado no podrás recuperarlo",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, eliminar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+
+                    console.log("Resultado SweetAlert:", result);  // 👈 DEPURACIÓN DIRECTA
+
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            }
         });
-
+    </script>
 @endpush

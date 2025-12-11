@@ -46,26 +46,38 @@
 @include('backend.sections.profesiones.modal')
 
 @push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-    <script type="module">
-        document.addEventListener('DOMContentLoaded', () => {
-            const table = window.LaravelDataTables["profesions-table"];
+    {!! $dataTable->scripts() !!}
 
-            document.querySelectorAll('.filtro').forEach(boton => {
-                boton.addEventListener('click', () => {
-                    const columna = boton.dataset.columna.toLowerCase();
-                    const valor = boton.dataset.valor;
+   <script>
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest(".btn-alt-danger");
 
-                    const headers = table.columns().header().toArray();
-                    const index = headers.findIndex(th =>
-                        th.textContent.trim().toLowerCase().includes(columna)
-                    );
+            if (btn) {
+                e.preventDefault();
 
-                    if (index !== -1) {
-                        table.column(index).search(valor).draw();
+                const form = btn.closest("form");
+
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "Una vez eliminado no podrás recuperarlo",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, eliminar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+
+                    console.log("Resultado SweetAlert:", result);  // 👈 DEPURACIÓN DIRECTA
+
+                    if (result.isConfirmed) {
+                        form.submit();
                     }
                 });
-            });
+            }
         });
     </script>
+
 @endpush
+
+

@@ -47,19 +47,19 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
         Route::get('/', [NombresCargosController::class, 'index'])->name('nombresCargos.index');
         Route::post('/', [NombresCargosController::class, 'store'])->name('nombresCargos.store');
         Route::get('/edit/{id}', [NombresCargosController::class, 'edit'])->name('nombresCargos.edit');
-        // Route::delete('/{id}', [NombresCargosController::class, 'destroy'])->name('nombresCargos.destroy');
+        Route::delete('/{id}', [NombresCargosController::class, 'destroy'])->name('nombresCargos.destroy');
         // Route::get('/{id}', [NombresCargosController::class, 'show'])->name('nombresCargos.show');
-        // Route::put('/{id}', [NombresCargosController::class, 'update'])->name('nombresCargos.update');
+        Route::put('/{id}', [NombresCargosController::class, 'update'])->name('nombresCargos.update');
     });
 
     //PROFESIONES
     Route::group(['prefix' => 'Profesiones'], function () {
         Route::get('/', [ProfesionesController::class, 'index'])->name('profesiones.index');
         Route::post('/', [ProfesionesController::class, 'store'])->name('profesiones.store');
-        //Route::get('/edit/{id}', [NombresCargosController::class, 'edit'])->name('nombresCargos.edit');
-        // Route::delete('/{id}', [NombresCargosController::class, 'destroy'])->name('nombresCargos.destroy');
+        Route::get('/edit/{id}', [ProfesionesController::class, 'edit'])->name('profesiones.edit');
+        Route::delete('/{id}', [ProfesionesController::class, 'destroy'])->name('profesiones.destroy');
         // Route::get('/{id}', [NombresCargosController::class, 'show'])->name('nombresCargos.show');
-        // Route::put('/{id}', [NombresCargosController::class, 'update'])->name('nombresCargos.update');
+        Route::put('/{id}', [ProfesionesController::class, 'update'])->name('profesiones.update');
     });
 
 

@@ -58,7 +58,7 @@ class NombresCargosController extends Controller
     {
         $nombreCargo = NombresCargos::find($id);
 
-        return view('backend.sections.users.edit', compact ('user','check', 'calidadJuridica', 'calidadSeleccionada'));
+        return view('backend.sections.nombresCargos.edit', compact ('nombreCargo'));
     }
 
     /**
@@ -66,7 +66,17 @@ class NombresCargosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $nombreCargo = NombresCargos::find($id);
+
+        $nombreCargo->update([
+            'nombre_cargo' => $request->nombreCargo,
+        ]);
+
+        if ($nombreCargo instanceof Model) {
+
+            return to_route('nombresCargos.index')->with('success', 'Registro actualizado exitosamente!');
+
+        }
     }
 
     /**
@@ -74,6 +84,15 @@ class NombresCargosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+            $id = $id;
+
+            $nombreCargo = NombresCargos::findOrFail($id);
+
+            if ($nombreCargo instanceof Model) {
+
+                $nombreCargo->delete();
+
+                return to_route('nombresCargos.index')->with('success', 'Registro eliminado exitosamente!');
+            }
     }
 }

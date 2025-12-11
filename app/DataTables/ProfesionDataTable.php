@@ -23,7 +23,17 @@ class ProfesionDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             // ->addColumn('action', 'profesion.action')
-            ->setRowId('id');
+            ->setRowId('id')
+            ->addColumn('action',
+            '<div>
+                <a href="{{ route(\'profesiones.edit\', $id )}}" class="btn btn-sm btn-alt-primary" title="Editar"><i class="fa fa-edit"></i></a>
+                 <form action="{{ route(\'profesiones.destroy\', $id) }}" method="POST" style="display: inline-block;">
+                    @csrf
+                    @method(\'DELETE\')
+                    <button type="submit" class="btn btn-sm btn-alt-danger " title="Desactivar"><i class="fa fa-trash"></i></button>
+                </form>
+            </div>');
+
     }
 
     /**
@@ -45,7 +55,7 @@ class ProfesionDataTable extends DataTable
                     ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->orderBy(1)
-                    ->selectStyleSingle()
+                    //->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
                         Button::make('csv'),
@@ -62,6 +72,7 @@ class ProfesionDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::computed('action'),
             // Column::computed('action')
             //       ->exportable(false)
             //       ->printable(false)

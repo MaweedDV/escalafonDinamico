@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\ProfesionDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Profesion;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ProfesionesController extends Controller
@@ -50,7 +51,9 @@ class ProfesionesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $profesion = Profesion::find($id);
+
+        return view('backend.sections.profesiones.edit', compact('profesion'));
     }
 
     /**
@@ -58,7 +61,17 @@ class ProfesionesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $profesion = Profesion::find($id);
+
+        $profesion->update([
+                    'profesion' => $request->profesion,
+        ]);
+
+        if ($profesion instanceof Model) {
+
+            return to_route('profesiones.index')->with('success', 'Profesión actualizada exitosamente.');
+
+        }
     }
 
     /**
@@ -66,6 +79,16 @@ class ProfesionesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         $id = $id;
+
+        $profesion = Profesion::findOrFail($id);
+
+        if ($profesion instanceof Model) {
+            $profesion->delete();
+
+            //toastr()->warning('Data has been deleted successfully!');
+
+            return to_route('profesiones.index')->with('flash', 'Registro eliminado exitosamente!');
+        }
     }
 }

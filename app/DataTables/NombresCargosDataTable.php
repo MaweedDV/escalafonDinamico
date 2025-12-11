@@ -29,7 +29,7 @@ class NombresCargosDataTable extends DataTable
                             <a href="{{ route(\'nombresCargos.edit\', $id )}}" class="btn btn-sm btn-alt-primary" title="Editar">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <form action="{{ route(\'users.destroy\', $id) }}" method="POST" style="display: inline-block;">
+                            <form action="{{ route(\'nombresCargos.destroy\', $id) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method("DELETE")
                                 <button type="submit" class="btn btn-sm btn-alt-danger" title="Eliminar">
@@ -76,13 +76,13 @@ class NombresCargosDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('nombre_cargo'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(500)
                   ->addClass('text-center'),
+            Column::make('id')->visible(false),
+            Column::make('nombre_cargo'),
             // Column::make('created_at'),
             // Column::make('updated_at'),
             // Column::computed('action')
