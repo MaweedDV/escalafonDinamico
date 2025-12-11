@@ -73,7 +73,7 @@
                                 data-bs-target="#{{ $accordionId }}"
                                 aria-expanded="true"
                                 aria-controls="{{ $accordionId }}">
-                            {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
+                            {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}°
 
                         </button>
 
