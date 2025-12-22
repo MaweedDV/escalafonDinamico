@@ -110,7 +110,7 @@ class FuncionariosController extends Controller
         $funcionario = Funcionarios::find($id);
         $calidadJuridica = CalidadJuridica::all();
         $cargosEscalafon = CargosEscalafon::join('nombres_cargos', 'cargos_escalafons.Id_nombresCargos', '=', 'nombres_cargos.id')
-            ->select('cargos_escalafons.*', 'nombres_cargos.nombre_cargo as nombreCargo')->get();
+            ->select('cargos_escalafons.*', 'nombres_cargos.nombre_cargo as nombreCargo')->where('cargos_escalafons.asignado', 0)->get();
         $educacionFormal = Profesion::all();
         $cargos = CargosEscalafon::find($funcionario->id_Cargo);
         $nombresCargos = NombresCargos::find($cargos->Id_nombresCargos);
@@ -125,7 +125,6 @@ class FuncionariosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
 
 
          $funcionario = Funcionarios::find($id);
@@ -157,14 +156,14 @@ class FuncionariosController extends Controller
                     ]);
                 }
 
-            }else if($request->Estado === 'vigente'){
+            }else if($request->Estado === 'vigente' && isset($request->cargoEscalafon)) {
 
                 $funcionario->update([
                     'rut' => $request->rut,
                     'nombre' => $request->nombre,
                     'apellido_paterno' => $request->apellidoPaterno,
                     'apellido_materno' => $request->apellidoMaterno,
-                    'id_Cargo' => $cargo->id,
+                    'id_Cargo' => $request->cargoEscalafon,
                     'antiguedad_cargo' => $request->ant_cargo,
                     'antiguedad_grado' => $request->ant_grado,
                     'antiguedad_mismo_municipio' => $request->ant_mism_mun,
@@ -173,6 +172,17 @@ class FuncionariosController extends Controller
                     'educacion_formal' => $request->educacionFormal,
                     'estado' => $request->Estado,
                 ]);
+                  if ($cargo) {
+                    $cargo->update([
+                        'asignado' => 0,
+                    ]);
+
+                    $newCargo = CargosEscalafon::find($request->cargoEscalafon);
+
+                    $newCargo->update([
+                        'asignado' => 1,
+                    ]);
+                }
             }
 
 

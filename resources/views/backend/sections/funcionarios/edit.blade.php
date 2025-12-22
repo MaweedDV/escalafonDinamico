@@ -62,7 +62,16 @@
                              {{-- ID CARGOS --}}
                             <div class="col-4">
                                 <h4>Cargo Escalafón</h4>
-                                <h4>{{$nombresCargos->nombre_cargo." ".$cargos->grado."°"}}</h4>
+                                 <h4>{{$nombresCargos->nombre_cargo." ".$cargos->grado."°"}}</h4>
+                                 <label>Para cambiar cargo seleccione nuevo cargo disponible</label>
+                                 <select class="form-select" id="example-select-floating" name="cargoEscalafon"
+                                    aria-label="Floating label select example">
+                                    <option selected="" disabled>Seleccione un cargo</option>
+                                    @foreach ($cargosEscalafon as $cargosEscalafon)
+                                    <option {{ old('cargoEscalafon') == $cargosEscalafon->id ? 'selected' : '' }} value="{{ $cargosEscalafon->id }}"> {{ $cargosEscalafon->nombreCargo." ".$cargosEscalafon->grado."°" }}</option>
+                                    @endforeach
+                                </select>
+
                                 {{-- <label class="form-label" for="example-ltf-email2">Cargo Escalafón</label>
                                 <label class="form-label" for="example-ltf-email2">{{$nombresCargos->nombre_cargo." ".$cargos->grado."°"}}</label> --}}
                                 {{-- <input type="text" class="form-control form-control" id="cargoEscalafon" name="cargoEscalafon"

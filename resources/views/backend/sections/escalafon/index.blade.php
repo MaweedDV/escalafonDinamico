@@ -148,7 +148,17 @@
                                 @for ($v = $indexfunc + 1; $v <= $totalCargosPorGrado; $v++)
                                     <tr class="table-warning">
                                         <td class="text-center" style="height: 80px;">{{ $v }}</td>
-                                        <td class="text-center" colspan="11" >VACANTE</td>
+                                        <td class="text-center">VACANTE</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center">-</td>
                                     </tr>
                                 @endfor
                             </tbody>

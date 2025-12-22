@@ -179,7 +179,7 @@ class FuncionariosDataTable extends DataTable
             Column::make('antiguedad_mismo_municipio'),
             Column::make('antiguedad_mismo_municipio_detalle'),
             Column::make('antiguedad_administracion_estado'),
-           // Column::make('profesion')->name('profesions.profesion')->title('Educacion Formal'),
+           //Column::make('profesion')->name('profesions.profesion')->title('Educacion Formal'),
             Column::make('estado'),
             Column::make('created_at'),
             Column::make('updated_at'),
