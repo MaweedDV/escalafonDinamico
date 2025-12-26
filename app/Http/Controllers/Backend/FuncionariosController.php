@@ -127,14 +127,13 @@ class FuncionariosController extends Controller
     {
 
 
+
          $funcionario = Funcionarios::find($id);
          $cargo = CargosEscalafon::find($funcionario->id_Cargo);
 
 
 
-            if (in_array($request->Estado, ['desactivado','retirado','fallecido'])) {
-
-
+        if (in_array($request->Estado, ['desactivado','retirado','fallecido'])) {
 
                 $funcionario->update([
                     'rut' => $request->rut,
@@ -156,7 +155,7 @@ class FuncionariosController extends Controller
                     ]);
                 }
 
-            }else if($request->Estado === 'vigente' && isset($request->cargoEscalafon)) {
+        }else if ($request->Estado === 'vigente' && $request->filled('cargoEscalafon')) {
 
                 $funcionario->update([
                     'rut' => $request->rut,
@@ -172,30 +171,40 @@ class FuncionariosController extends Controller
                     'educacion_formal' => $request->educacionFormal,
                     'estado' => $request->Estado,
                 ]);
-                  if ($cargo) {
-                    $cargo->update([
-                        'asignado' => 0,
-                    ]);
 
-                    $newCargo = CargosEscalafon::find($request->cargoEscalafon);
-
-                    $newCargo->update([
-                        'asignado' => 1,
-                    ]);
+                if ($cargo) {
+                    $cargo->update(['asignado' => 0]);
                 }
-            }
+
+                $newCargo = CargosEscalafon::find($request->cargoEscalafon);
+                if ($newCargo) {
+                    $newCargo->update(['asignado' => 1]);
+                }
+
+        }else if($request->Estado === 'vigente' && !$request->filled('cargoEscalafon')) {
+            $funcionario->update([
+                'rut' => $request->rut,
+                'nombre' => $request->nombre,
+                'apellido_paterno' => $request->apellidoPaterno,
+                'apellido_materno' => $request->apellidoMaterno,
+                'antiguedad_cargo' => $request->ant_cargo,
+                'antiguedad_grado' => $request->ant_grado,
+                'antiguedad_mismo_municipio' => $request->ant_mism_mun,
+                'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
+                'antiguedad_administracion_estado' => $request->ant_administracion_estado,
+                'educacion_formal' => $request->educacionFormal,
+                'estado' => $request->Estado,
+            ]);
+        }
 
 
+        if ($funcionario instanceof Model) {
 
+            return to_route('funcionarios.index')->with('success', 'Registro actualizado exitosamente!');
 
-            if ($funcionario instanceof Model) {
-
-                return to_route('funcionarios.index')->with('success', 'Registro actualizado exitosamente!');
-
-            }
-
-
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
