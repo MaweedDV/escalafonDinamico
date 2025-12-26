@@ -135,25 +135,24 @@ class FuncionariosController extends Controller
 
         if (in_array($request->Estado, ['desactivado','retirado','fallecido'])) {
 
-                $funcionario->update([
-                    'rut' => $request->rut,
-                    'nombre' => $request->nombre,
-                    'apellido_paterno' => $request->apellidoPaterno,
-                    'apellido_materno' => $request->apellidoMaterno,
-                    'id_Cargo' => 0,
-                    'antiguedad_cargo' => $request->ant_cargo,
-                    'antiguedad_grado' => $request->ant_grado,
-                    'antiguedad_mismo_municipio' => $request->ant_mism_mun,
-                    'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
-                    'antiguedad_administracion_estado' => $request->ant_administracion_estado,
-                    'educacion_formal' => $request->educacionFormal,
-                    'estado' => $request->Estado,
-                ]);
-                if ($cargo) {
-                    $cargo->update([
-                        'asignado' => 0,
-                    ]);
-                }
+            $funcionario->update([
+                'rut' => $request->rut,
+                'nombre' => $request->nombre,
+                'apellido_paterno' => $request->apellidoPaterno,
+                'apellido_materno' => $request->apellidoMaterno,
+                'id_Cargo' => null, // 👈 CLAVE
+                'antiguedad_cargo' => $request->ant_cargo,
+                'antiguedad_grado' => $request->ant_grado,
+                'antiguedad_mismo_municipio' => $request->ant_mism_mun,
+                'antiguedad_mismo_municipio_detalle' => $request->ant_mism_mun_detalle,
+                'antiguedad_administracion_estado' => $request->ant_administracion_estado,
+                'educacion_formal' => $request->educacionFormal,
+                'estado' => $request->Estado,
+            ]);
+
+            if ($cargo) {
+                $cargo->update(['asignado' => 0]);
+            }
 
         }else if ($request->Estado === 'vigente' && $request->filled('cargoEscalafon')) {
 
@@ -182,6 +181,7 @@ class FuncionariosController extends Controller
                 }
 
         }else if($request->Estado === 'vigente' && !$request->filled('cargoEscalafon')) {
+
             $funcionario->update([
                 'rut' => $request->rut,
                 'nombre' => $request->nombre,
