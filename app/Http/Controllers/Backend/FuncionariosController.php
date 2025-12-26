@@ -156,6 +156,10 @@ class FuncionariosController extends Controller
 
         }else if ($request->Estado === 'vigente' && $request->filled('cargoEscalafon')) {
 
+                 if ($cargo) {
+                    $cargo->update(['asignado' => 0]);
+                }
+
                 $funcionario->update([
                     'rut' => $request->rut,
                     'nombre' => $request->nombre,
@@ -171,9 +175,7 @@ class FuncionariosController extends Controller
                     'estado' => $request->Estado,
                 ]);
 
-                if ($cargo) {
-                    $cargo->update(['asignado' => 0]);
-                }
+
 
                 $newCargo = CargosEscalafon::find($request->cargoEscalafon);
                 if ($newCargo) {
