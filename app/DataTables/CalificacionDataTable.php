@@ -2,43 +2,48 @@
 
 namespace App\DataTables;
 
-use App\Models\Calificacion;
 use App\Models\Funcionarios;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class CalificacionDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
-     *
-     * @param QueryBuilder $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->addColumn('calificaciones', function ($row) {
-            return '
-                <div class="input-group calificacion-group" data-id="' . $row->id . '">
-                    <input type="text" class="form-control editable-input" data-column="calificacion" value="'. $row->calificacion .'">
-                    <button class="btn btn-sm btn-success save-btn" title="Guardar" data-column="calificacion">
-                         <i class="fa-solid fa-floppy-disk"></i>
-                    </button>
-                    <button class="btn btn-sm btn-secondary edit-btn d-none" title="Editar">
-                         <i class="fa-solid fa-edit"></i>
-                    </button>
-                </div>';
-        })
+            ->setRowId('id')
 
-            ->addColumn('action', 'calificacion.action')
-            ->rawColumns(['calificaciones', 'action']) // importante para que se renderice el HTML
-            ->setRowId('id');
+            // 🔹 COLUMNA EDITABLE
+            ->addColumn('calificaciones', function ($row) {
+                $valor = ($row->calificacion == 0) ? '' : e($row->calificacion);
+
+                return '
+                    <div class="input-group calificacion-group" data-id="'.$row->id.'">
+                        <input type="text"
+                               class="form-control editable-input"
+                               data-column="calificacion"
+                               value="'.$valor.'">
+
+                        <button class="btn btn-sm btn-success save-btn" title="Guardar">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                        </button>
+
+                        <button class="btn btn-sm btn-secondary edit-btn d-none" title="Editar">
+                            <i class="fa-solid fa-edit"></i>
+                        </button>
+
+                    </div>
+                ';
+            })
+
+            ->rawColumns(['calificaciones']);
     }
 
     /**
@@ -55,24 +60,17 @@ class CalificacionDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('calificacion-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->autoWidth(true)
-                    // ->scrollX(true)
-                    // ->scrollY()
-                    ->responsive(true)
-                    //->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        //Button::make('pdf'),
-                        // Button::make('print'),
-                        // Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('calificacion-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->orderBy(1)
+            ->responsive(true)
+            ->autoWidth(true)
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('reload'),
+            ]);
     }
 
     /**
@@ -81,28 +79,24 @@ class CalificacionDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
             Column::make('id')->visible(false),
-            Column::make('rut'),
-            Column::make('nombre'),
-            Column::make('apellido_paterno'),
-            Column::make('apellido_materno'),
+            Column::make('rut')->title('Rut'),
+            Column::make('nombre')->title('Nombre'),
+            Column::make('apellido_paterno')->title('Apellido Paterno'),
+            Column::make('apellido_materno')->title('Apellido Materno'),
+
+            // Columna real (oculta)
             Column::make('calificacion')
-                ->title('Calificación')
-                ->exportable(true)
-                ->visible(false),
+                ->visible(false)
+                ->exportable(true),
+
+            // Columna editable
             Column::computed('calificaciones')
                 ->title('Calificación')
                 ->orderable(false)
                 ->searchable(false)
                 ->exportable(false)
-                ->width(50),
-            // Column::computed('action')
-            //       ->exportable(false)
-            //       ->printable(false)
-            //       ->width(60)
-            //       ->addClass('text-center'),
-
+                ->width(120),
         ];
     }
 

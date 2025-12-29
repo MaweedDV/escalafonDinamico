@@ -19,11 +19,28 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
+
+
+
      <!-- tus estilos y meta tags -->
      <meta name="csrf-token" content="{{ csrf_token() }}">
 
      <!-- jQuery primero -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute('content')
+            }
+        });
+    });
+</script>
+
+
 
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -53,6 +70,8 @@
     @yield('css')
     @vite(['resources/sass/main.scss', 'resources/sass/dashmix/themes/_base.scss', 'resources/js/dashmix/app.js'])
     @yield('js')
+
+
 </head>
 
 <body>

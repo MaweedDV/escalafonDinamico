@@ -88,7 +88,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::group(['prefix' => 'calificaciones'], function () {
         Route::get('/', [CalificacionController::class, 'index'])->name('calificacion.index');
         //Route::post('/', [CalificacionController::class, 'store'])->name('calificaciones.store');
-        Route::post('/update-campo', [CalificacionController::class, 'updateCampo'])->name('calificaciones.updateCampo');
+        Route::post('/update', [CalificacionController::class, 'updateCampo'])->name('calificaciones.updateCampo');
         // Route::get('/edit/{id}', [CalificacionController::class, 'edit'])->name('calificaciones.edit');
         // Route::delete('/{id}', [CalificacionController::class, 'destroy'])->name('calificaciones.destroy');
         // Route::get('/{id}', [CalificacionController::class, 'show'])->name('calificaciones.show');

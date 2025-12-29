@@ -28,17 +28,23 @@ class CalificacionController extends Controller
 
     public function updateCampo(Request $request)
     {
-        $request->validate([
-            'id' => 'required|exists:funcionarios,id',
-            'column' => 'required|in:calificacion',
-            'value' => 'nullable|string',
-        ]);
+            $request->validate([
+                'id'     => 'required|exists:funcionarios,id',
+                'column' => 'required|in:calificacion',
+                'value'  => 'nullable|string|max:10',
+            ]);
 
-        $funcionario = Funcionarios::findOrFail($request->id);
-        $funcionario->{$request->column} = $request->value;
-        $funcionario->save();
+            $funcionario = Funcionarios::findOrFail($request->id);
 
-        return response()->json(['success' => true]);
+            $valor = $request->value == '' ? 0 : $request->value;
+
+            $funcionario->calificacion = $valor;
+            $funcionario->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Calificación actualizada correctamente'
+            ]);
     }
 
     /**

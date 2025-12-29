@@ -36,70 +36,79 @@
 @push('scripts')
     {{
 
-    $dataTable->scripts(attributes: ['type' => 'module'])
+    $dataTable->scripts()
     }}
 
-    <script>
-      $(document).ready(function () {
-            $('#calificacion-table').on('click', '.save-btn', function () {
-                let button = $(this);
-                let group = button.closest('.calificacion-group');
-                let id = group.data('id');
-                let input = group.find('input');
-                let column = input.data('column');
-                let value = input.val();
-                let editBtn = group.find('.edit-btn');
-                let originalIcon = button.html();
+   <script>
+        $(document).on('click', '.edit-btn', function () {
+            const group = $(this).closest('.calificacion-group');
+            const input = group.find('.editable-input');
 
-                console.log(id, column, value)
+            input.prop('disabled', false).focus();
+            group.find('.edit-btn').addClass('d-none');
+            group.find('.save-btn').removeClass('d-none');
+        });
 
-                $.ajax({
-                    url: '{{ route("calificaciones.updateCampo") }}',
-                    type: 'POST',
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        id: id,
-                        column: column,
-                        value: value
-                    },
-                    success: function () {
-                        button.html('✔️').removeClass('btn-primary').addClass('btn-success');
-                        input.addClass('border-success').prop('disabled', true);
-                        editBtn.removeClass('d-none');
-                        button.hide();
-
-                        // Mostrar toast
-                        const toast = new bootstrap.Toast(document.getElementById('toastGuardado'));
-                        toast.show();
-
-                        setTimeout(() => {
-                            button.html(originalIcon).removeClass('btn-success').addClass('btn-primary');
-                            input.removeClass('border-success');
-                        }, 2000);
-                    },
-                    error: function () {
-                        button.html('❌').removeClass('btn-primary').addClass('btn-danger');
-                        input.addClass('border-danger');
-
-                        setTimeout(() => {
-                            button.html(originalIcon).removeClass('btn-danger').addClass('btn-primary');
-                            input.removeClass('border-danger');
-                        }, 2000);
-                    }
-                });
-            });
-
-            $('#calificacion-table').on('click', '.edit-btn', function () {
-                let button = $(this);
-                let group = button.closest('.calificacion-group');
-                let input = group.find('input');
-                let saveBtn = group.find('.save-btn');
-
-                input.prop('disabled', false);
-                saveBtn.show();
-                button.addClass('d-none');
-                input.focus();
-            });
+        $(document).on('click', '.save-btn', function () {
+            const group = $(this).closest('.calificacion-group');
+            guardarCalificacion(group, false);
         });
     </script>
+
+    <script>
+        $(document).on('keydown', '.editable-input', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+
+                const input = $(this);
+                const group = input.closest('.calificacion-group');
+
+                guardarCalificacion(group, true);
+            }
+        });
+
+        function guardarCalificacion(group, irSiguiente = false) {
+            const input = group.find('.editable-input');
+
+            $.ajax({
+                url: '/admin/calificaciones/update',
+                method: 'POST',
+                data: {
+                    id: group.data('id'),
+                    column: input.data('column'),
+                    value: input.val()
+                },
+                success: function () {
+                    // Bloquear actual
+                    input.prop('disabled', true);
+                    group.find('.save-btn').addClass('d-none');
+                    group.find('.edit-btn').removeClass('d-none');
+
+                    if (irSiguiente) {
+                        irAlSiguienteInput(group);
+                    }
+                },
+                error: function () {
+                    alert('Error al guardar');
+                    input.prop('disabled', false);
+                }
+            });
+        }
+
+        function irAlSiguienteInput(group) {
+            const allGroups = $('.calificacion-group:visible');
+            const index = allGroups.index(group);
+
+            if (index !== -1 && index + 1 < allGroups.length) {
+                const siguiente = allGroups.eq(index + 1);
+                const inputSiguiente = siguiente.find('.editable-input');
+
+                inputSiguiente.prop('disabled', false).focus();
+                siguiente.find('.save-btn').removeClass('d-none');
+                siguiente.find('.edit-btn').addClass('d-none');
+            }
+        }
+</script>
+
+
 @endpush
