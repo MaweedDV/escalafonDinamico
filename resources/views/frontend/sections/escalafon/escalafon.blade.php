@@ -272,7 +272,7 @@
 
                                 </div>
 
-                                <label class="d-block text-end mt-3">
+                                <label class="d-block text-left mt-3">
                                     Total Cargos: {{ $totalCargosPorGrado }}
                                     (Provistos: {{ $funcionarios->count() }} —
                                     No Provistos: {{ $totalCargosPorGrado - $funcionarios->count() }})

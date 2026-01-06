@@ -30,6 +30,7 @@ class UsersDataTable extends dataTable
                 @method(\'DELETE\')
                 <button type="submit" class="btn btn-sm btn-alt-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
             </form>
+
             <script type="module">
             $(document).ready(function() {
                 $(".btn-alt-danger").on("click", function(e) {
