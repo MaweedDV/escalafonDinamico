@@ -58,7 +58,7 @@
                                     ['calificacion', 'desc'],
                                     ['antiguedad_cargo', 'asc'],
                                     ['antiguedad_grado', 'asc'],
-                                    ['antiguedad_mismo_municipio', 'asc'], //despues de ingresado detalle sacar esta variable
+                                    ['antiguedad_mismo_municipio_detalle', 'desc'], //lectura por tiempo efectivo en detalle
                                     ['fecha_decreto', 'asc'],
                                     ['decreto', 'asc'],
                                 ]);
