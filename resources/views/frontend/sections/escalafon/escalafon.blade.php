@@ -157,7 +157,7 @@
                                                 <th class="text-center">Antig. Cargo</th>
                                                 <th class="text-center">Antig. Grado</th>
                                                 <th class="text-center">Antig. M. Municipio</th>
-                                                <th class="text-center">Detalle</th>
+                                                {{-- <th class="text-center">Detalle</th> --}}
                                                 <th class="text-center">Antig. Estado</th>
                                                 <th class="text-center">Educación Formal</th>
                                             </tr>
@@ -186,7 +186,7 @@
                                                     <td class="text-center">{{ $funcionario->antiguedad_cargo ?? '-' }}</td>
                                                     <td class="text-center">{{ $funcionario->antiguedad_grado ?? '-' }}</td>
                                                     <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio ?? '-' }}</td>
-                                                    <td class="text-center">{{ "{$anos}A-{$meses}M-{$dias}D" }}</td>
+                                                    {{-- <td class="text-center">{{ "{$anos}A-{$meses}M-{$dias}D" }}</td> --}}
                                                     <td class="text-center">{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
                                                     <td>{{ $profesion->profesion ?? '-' }}</td>
                                                 </tr>

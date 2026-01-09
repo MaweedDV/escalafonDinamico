@@ -143,7 +143,7 @@
                     <table class="table table-bordered table-vcenter">
                         <thead>
                             <tr>
-                                <th colspan="12">
+                                <th colspan="11">
                                     {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
                                 </th>
                             </tr>
@@ -157,7 +157,7 @@
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Cargo</th>
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Grado</th>
                                 <th style="width: 70px; background-color: #eef4ff;">Antig. Mismo Municipio</th>
-                                <th style="width: 70px;background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th>
+                                {{-- <th style="width: 70px;background-color: #eef4ff;">Antig. Mismo Municipio Detalle</th> --}}
                                 <th style="width: 70px;background-color: #eef4ff;">Antig. Estado</th>
                                 <th style="width: 180px;background-color: #eef4ff;">Educación Formal</th>
                             </tr>
@@ -190,8 +190,8 @@
                                     <td class="text-center">{{ date("d-m-Y", $antiguedad_cargo) ?? '-' }}</td>
                                     <td class="text-center">{{ date("d-m-Y", $antiguedad_grado) ?? '-' }}</td>
                                     <td class="text-center">{{ date("d-m-Y", $antiguedad_mismo_municipio) ?? '-' }}</td>
-                                    <td>3A-2M-10D</td>
-                                    <td>3A-2M-10D</td>
+                                    {{-- <td>3A-2M-10D</td> --}}
+                                    <td> </td>
                                     <td>{{ $profesion->profesion ?? '-' }}</td>
                                 </tr>
                             @endforeach
@@ -208,7 +208,7 @@
                                     <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
-                                    <td>-</td>
+                                    {{-- <td>-</td> --}}
                                     <td>-</td>
                                     <td>-</td>
                                 </tr>
