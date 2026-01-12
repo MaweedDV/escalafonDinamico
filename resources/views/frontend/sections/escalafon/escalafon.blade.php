@@ -183,9 +183,9 @@
                                                     <td class="text-center">{{ $grado }}</td>
                                                     <td class="text-center">{{ $funcionario->calificacion ?? '-' }}</td>
                                                     <td class="text-center">{{ $funcionario->lista ?? '-' }}</td>
-                                                    <td class="text-center">{{ $funcionario->antiguedad_cargo ?? '-' }}</td>
-                                                    <td class="text-center">{{ $funcionario->antiguedad_grado ?? '-' }}</td>
-                                                    <td class="text-center">{{ $funcionario->antiguedad_mismo_municipio ?? '-' }}</td>
+                                                    <td class="text-center">{{ date("d-m-Y", $antiguedad_cargo) ?? '-' }}</td>
+                                                    <td class="text-center">{{ date("d-m-Y", $antiguedad_grado) ?? '-' }}</td>
+                                                    <td class="text-center">{{ date("d-m-Y", $antiguedad_mismo_municipio) ?? '-' }}</td>
                                                     {{-- <td class="text-center">{{ "{$anos}A-{$meses}M-{$dias}D" }}</td> --}}
                                                     <td class="text-center">{{ $funcionario->antiguedad_administracion_estado ?? '-' }}</td>
                                                     <td>{{ $profesion->profesion ?? '-' }}</td>
