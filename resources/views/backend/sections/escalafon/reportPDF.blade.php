@@ -132,7 +132,7 @@
                         ['calificacion', 'desc'],
                         ['antiguedad_cargo', 'asc'],
                         ['antiguedad_grado', 'asc'],
-                        ['antiguedad_mismo_municipio', 'asc'],
+                        ['antiguedad_mismo_municipio_detalle', 'desc'],
                         ['fecha_decreto', 'asc'],
                         ['decreto', 'asc'],
                     ]);
