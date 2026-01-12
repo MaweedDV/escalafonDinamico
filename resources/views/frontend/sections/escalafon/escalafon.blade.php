@@ -174,6 +174,9 @@
                                                     $anos = floor($detalle / 365);
                                                     $meses = floor(($detalle % 365) / 30);
                                                     $dias = ($detalle % 365) % 30;
+                                                    $antiguedad_cargo = strtotime($funcionario->antiguedad_cargo);
+                                                    $antiguedad_grado = strtotime($funcionario->antiguedad_grado);
+                                                    $antiguedad_mismo_municipio = strtotime($funcionario->antiguedad_mismo_municipio);
                                                 @endphp
 
                                                 <tr>
