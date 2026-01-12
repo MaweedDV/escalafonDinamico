@@ -209,7 +209,7 @@
                                                     <td class="text-center">-</td>
                                                     <td class="text-center">-</td>
                                                     <td class="text-center">-</td>
-                                                    <td class="text-center">-</td>
+                                                    {{-- <td class="text-center">-</td> --}}
                                                 </tr>
                                             @endfor
                                         </tbody>
@@ -245,7 +245,7 @@
                                                 <p><strong>Antig. Cargo:</strong> {{ $funcionario->antiguedad_cargo ?? '-' }}</p>
                                                 <p><strong>Antig. Grado:</strong> {{ $funcionario->antiguedad_grado ?? '-' }}</p>
                                                 <p><strong>Antig. Municipio:</strong> {{ $funcionario->antiguedad_mismo_municipio ?? '-' }}</p>
-                                                <p><strong>Detalle:</strong> {{ "{$anos}A-{$meses}M-{$dias}D" }}</p>
+                                                {{-- <p><strong>Detalle:</strong> {{ "{$anos}A-{$meses}M-{$dias}D" }}</p> --}}
                                                 <p><strong>Antig. Estado:</strong> {{ $funcionario->antiguedad_administracion_estado ?? '-' }}</p>
                                                 <hr>
                                                 <p><strong>Educación Formal:</strong> {{ $profesion->profesion ?? '-' }}</p>
