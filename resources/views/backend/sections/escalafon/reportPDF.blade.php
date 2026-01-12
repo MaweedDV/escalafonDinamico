@@ -110,14 +110,17 @@
 <div class="content">
    <!-- Título general centrado -->
 <div style="position: relative; text-align: center; margin-bottom: 10px;">
-    <h1 style="margin: 0;">ESCALAFÓN DE MÉRITO {{$ano_vigencia}}</h1>
+    {{-- <h1 style="margin: 0;">ESCALAFÓN DE MÉRITO {{$ano_vigencia}}</h1> --}}
+    <h1 style="margin: 0;">ESCALAFÓN DE MÉRITO 2026</h1>
     <img src="{{ public_path('media/escalafon/leyendaCargos.png')}}"
          style="position: absolute; right: 0; top: 50%; transform: translateY(-300%); width: 20%; height: 20%;">
 </div>
 
 <label style="text-align: left; display: block; font-weight: normal; font-size: 1em; margin-top: 5px;">
-    Vigente: {{ date('01-01-'.$ano_vigencia) }} <br>
-    Periodo Calificatorio: {{date('01-09-'.$ano_periodo_desde)}} a {{date('31-08-'.$ano_periodo_hasta)}}
+    {{-- Vigente: {{ date('01-01-'.$ano_vigencia) }} <br> --}}
+    {{-- Periodo Calificatorio: {{date('01-09-'.$ano_periodo_desde)}} a {{date('31-08-'.$ano_periodo_hasta)}} --}}
+    Vigente: {{ date('01-01-2026') }} <br>
+    Periodo Calificatorio: {{date('01-09-2024')}} a {{date('31-08-2025')}}
 </label>
 
     @foreach($nombresCargos as $nombreCargo)
