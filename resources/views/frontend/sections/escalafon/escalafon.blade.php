@@ -80,7 +80,7 @@
 
         <div class="card shadow-sm p-3 col-12 col-md-6 mb-2">
             <label for="buscador-funcionarios" class="form-label fw-semibold">🔎 Buscar Funcionarios</label>
-            <input type="text" id="buscador-funcionarios" class="form-control" placeholder="Ejemplo: Juan Pérez o 12345678-9">
+            <input type="text" id="buscador-funcionarios" class="form-control" placeholder="Ejemplo: Juan Gonzalez o 12345678-9">
         </div>
 
         <div class="card shadow-sm p-3 col-12 col-md-6 mb-2">
