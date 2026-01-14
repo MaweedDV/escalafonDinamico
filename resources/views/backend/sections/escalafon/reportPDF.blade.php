@@ -135,7 +135,7 @@
                                     switch ($nombreCargo->id) {
                                         case 2: case 6: case 7: case 8: case 4:
                                             $COLOR = '#55e5f2'; break;
-                                        case 3: case 5: case 9: case 10: case 11: case 554: case 555:
+                                        case 3: case 5: case 9: case 10: case 11: case 554: case 555: case 556:
                                             $COLOR = '#fc981e'; break;
                                         default:
                                             $COLOR = '#2a68f7'; break;
