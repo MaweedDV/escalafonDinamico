@@ -85,7 +85,7 @@
 
         /* Estilo para título dentro del encabezado */
         thead tr:first-child th {
-            background-color: #dbe5ff !important;
+            /* background-color: #dbe5ff !important; */
             font-weight: bold;
             text-align: left;
             font-size: 14px;
@@ -131,6 +131,16 @@
 
             @foreach($cargosPorGrado as $grado => $cargos)
                 @php
+
+                                    switch ($nombreCargo->id) {
+                                        case 2: case 6: case 7: case 8: case 4:
+                                            $COLOR = '#55e5f2'; break;
+                                        case 3: case 5: case 9: case 10: case 11: case 554: case 555:
+                                            $COLOR = '#fc981e'; break;
+                                        default:
+                                            $COLOR = '#2a68f7'; break;
+                                    }
+
                     $funcionarios = $cargos->flatMap->funcionarios->sortBy([
                         ['calificacion', 'desc'],
                         ['antiguedad_cargo', 'asc'],
@@ -146,7 +156,7 @@
                     <table class="table table-bordered table-vcenter">
                         <thead>
                             <tr>
-                                <th colspan="11">
+                                <th colspan="11" style="background-color: {{$COLOR}}">
                                     {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
                                 </th>
                             </tr>
@@ -170,21 +180,12 @@
                             @foreach($funcionarios as $funcionario)
                                 @php
                                     $profesion = App\Models\Profesion::find($funcionario->educacion_formal);
-                                    switch ($funcionario->id_Cargo) {
-                                        case 2: case 6: case 7: case 8:
-                                            $COLOR = '#55e5f2'; break;
-                                        case 3: case 4: case 5: case 9: case 10: case 11: case 554: case 555:
-                                            $COLOR = '#fc981e'; break;
-                                        default:
-                                            $COLOR = '#2a68f7'; break;
-                                    }
-
                                     $antiguedad_cargo = strtotime($funcionario->antiguedad_cargo);
                                     $antiguedad_grado = strtotime($funcionario->antiguedad_grado);
                                     $antiguedad_mismo_municipio = strtotime($funcionario->antiguedad_mismo_municipio);
                                 @endphp
                                 <tr>
-                                    <td style="background-color: {{$COLOR}}">{{ ++$indexfunc }}</td>
+                                    <td >{{ ++$indexfunc }}</td>
                                     <td style="height: 50px">{{ $funcionario->apellido_paterno . ' ' . $funcionario->apellido_materno . ' ' . $funcionario->nombre }}</td>
                                     <td>{{ $funcionario->rut }}</td>
                                     <td>{{ $grado }}</td>
@@ -202,7 +203,7 @@
                             {{-- Vacantes --}}
                             @for ($v = $indexfunc + 1; $v <= $totalCargosPorGrado; $v++)
                                 <tr>
-                                    <td style="height: 50px; background-color: #2a68f7 ">{{ $v }}</td>
+                                    <td style="height: 50px;">{{ $v }}</td>
                                     <td>VACANTE</td>
                                     <td>-</td>
                                     <td>{{ $grado }}</td>
