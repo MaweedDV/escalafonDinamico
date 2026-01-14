@@ -156,7 +156,7 @@
                     <table class="table table-bordered table-vcenter">
                         <thead>
                             <tr>
-                                <th colspan="11" style="background-color: {{$COLOR}}">
+                                <th colspan="11" style="background-color: {{$COLOR}}  !important; color: #000;">
                                     {{ $nombreCargo->nombre_cargo }} - GRADO {{ $grado }}
                                 </th>
                             </tr>
