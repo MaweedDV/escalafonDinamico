@@ -148,18 +148,18 @@
                                     <table class="table table-bordered table-striped align-middle">
                                         <thead class="table-light">
                                             <tr>
-                                                <th class="text-center">Lugar</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th class="text-center">Rut</th>
-                                                <th class="text-center">Grado</th>
-                                                <th class="text-center">Calif.</th>
-                                                <th class="text-center">Lista</th>
-                                                <th class="text-center">Antig. Cargo</th>
-                                                <th class="text-center">Antig. Grado</th>
-                                                <th class="text-center">Antig. M. Municipio</th>
+                                                <th class="text-center" style="width: 40px">Lugar</th>
+                                                <th class="text-center" style="width: 200px">Nombre</th>
+                                                <th class="text-center" style="width: 140px">Rut</th>
+                                                <th class="text-center" style="width: 40px">Grado</th>
+                                                <th class="text-center" style="width: 40px">Calif.</th>
+                                                <th class="text-center" style="width: 40px">Lista</th>
+                                                <th class="text-center" style="width: 100px">Antig. Cargo</th>
+                                                <th class="text-center" style="width: 100px">Antig. Grado</th>
+                                                <th class="text-center" style="width: 100px">Antig. M. Municipio</th>
                                                 {{-- <th class="text-center">Detalle</th> --}}
-                                                <th class="text-center">Antig. Estado</th>
-                                                <th class="text-center">Educación Formal</th>
+                                                <th class="text-center" style="width: 100px">Antig. Estado</th>
+                                                <th class="text-center" style="width: 200px">Educación Formal</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -180,8 +180,8 @@
                                                 @endphp
 
                                                 <tr>
-                                                    <td class="text-center">{{ $index }}</td>
-                                                    <td>{{ $funcionario->apellido_paterno }} {{ $funcionario->apellido_materno }} {{ $funcionario->nombre }}</td>
+                                                    <td class="text-center" style="height: 80px">{{ $index }}</td>
+                                                    <td >{{ $funcionario->apellido_paterno }} {{ $funcionario->apellido_materno }} {{ $funcionario->nombre }}</td>
                                                     <td class="text-center">{{ $funcionario->rut }}</td>
                                                     <td class="text-center">{{ $grado }}</td>
                                                     <td class="text-center">{{ $funcionario->calificacion ?? '-' }}</td>
@@ -198,7 +198,7 @@
                                             {{-- VACANTES --}}
                                             @for ($v = $index + 1; $v <= $totalCargosPorGrado; $v++)
                                                 <tr class="table-warning">
-                                                    <td class="text-center">{{ $v }}</td>
+                                                    <td class="text-center" style="height: 80px">{{ $v }}</td>
                                                     <td class="text-center">VACANTE</td>
                                                     <td class="text-center">-</td>
                                                     <td class="text-center">{{ $grado }}</td>
