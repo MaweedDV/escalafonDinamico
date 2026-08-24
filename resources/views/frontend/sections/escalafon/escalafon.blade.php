@@ -65,12 +65,17 @@
 
         <div class="col-12 col-md-6 d-flex justify-content-md-end justify-content-start gap-4">
             <a href="{{ route('escalafonPDFpublic.report') }}" target="_blank">
-                <i class="si si-printer fs-1"></i>
+                <i class="si si-printer fs-1"
+                 title="Imprimir PDF"></i>
             </a>
 
-            <a data-bs-toggle="modal" data-bs-target="#modal-block-fromright" href="">
+            <a data-bs-toggle="modal" data-bs-target="#modal-block-fromright" href=""
+                title="Información">
                 <i class="si si-info fs-1"></i>
             </a>
+
+
+
         </div>
 
     </div>
@@ -382,5 +387,18 @@
             btn.setAttribute('aria-expanded', 'false');
         });
     });
+
+
+    //tooltips para los iconos
+    document.addEventListener('DOMContentLoaded', function () {
+        const tooltipTriggerList = [].slice.call(
+            document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+
+
 </script>
 @endpush
