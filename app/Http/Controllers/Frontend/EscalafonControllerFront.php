@@ -28,8 +28,8 @@ class EscalafonControllerFront extends Controller
 
 
 
-        //return view('frontend.sections.escalafon.escalafon', compact('nombresCargos'));
-        return view('frontend.sections.escalafon.enMantencion');
+        return view('frontend.sections.escalafon.escalafon', compact('nombresCargos'));
+        //return view('frontend.sections.escalafon.enMantencion');
     }
 
     /**
